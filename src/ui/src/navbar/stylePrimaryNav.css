@@ -1,0 +1,11 @@
+.appSwitcherPopover .ant-popover-inner-content {
+    padding: 12px 0px;
+}
+
+.appSwitcherPopover .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+  border-right: none !important;
+}
+
+.ant-notification {
+  z-index: 2200;
+}

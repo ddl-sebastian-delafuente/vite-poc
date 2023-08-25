@@ -1,0 +1,33 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  CodeLocation,
+  bookMarks,
+  getDisabledProps,
+  getDevStoryPath
+} from '../../../../utils/storybookUtil';
+import ScatterPlot from '../ScatterPlot';
+
+export const disabledNames = [];
+
+<Meta
+  title={getDevStoryPath('Charts')}
+  component={ScatterPlot}
+  argTypes={{
+    ...getDisabledProps(disabledNames)
+  }}
+/>
+
+export const Template = (args) => <ScatterPlot {...args} />
+
+<Canvas>
+  <Story
+    name="Scatter Plot"
+    args={{
+      data: [[5, 8], [4, 7], [3, 9]],
+      xAxisTitle: 'accuaracy',
+      yAxisTitle: 'rmse'
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

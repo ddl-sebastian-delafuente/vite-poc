@@ -1,0 +1,92 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  CodeLocation,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+import ConfirmationModalWrapper from './ConfirmationModalWrapper';
+
+export const disabledNames = [
+  'modalTestId',
+  'okTestId',
+  'cancelTestId',
+  'setVisible',
+  'handleOk',
+  'isVisible'
+];
+
+<Meta
+  title={getStandardStoryPath('Message/Confirmation')}
+  component={ConfirmationModalWrapper}
+  argTypes={{
+    header: {
+      description: 'Header to be displayed in confirmation modal'
+    },
+    description: {
+      description: 'Description to be displayed in confirmation modal'
+    },
+    okText: {
+      description: 'Text to be displayed in submit button'
+    },
+    cancelText: {
+      description: 'Text to be displayed in cancel button'
+    },
+    ...getDisabledProps(disabledNames)
+  }}
+/>
+
+## Confirmation
+A confirmation message acts as a speed bump when a user initiates a destructive or dangerous action.
+
+export const Template = (args) => <ConfirmationModalWrapper {...args} />
+
+<Canvas>
+  <Story
+    name="Confirmation"
+    args={{
+      cancelText: 'Cancel',
+      description: 'Are you sure you want to break stuff? This could be dangerous.',
+      header: 'Break stuff?',
+      okText: 'Break stuff',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+This pattern loses its effectiveness if overused. It should therefore only be used in situations where an action is
+destructive or can have real adverse consequences. If the action is easy to undo without lasting consequences, a
+confirmation is likely unnecessary.
+
+(We do not currently have a pattern for extremely destructive/dangerous actions. If you come across a situation where a
+simple button click doesn’t feel safe enough, consider defining a new pattern for this type of situation. For example,
+you could require the user to type the name of the affected object before the action is taken.)
+
+Configuration:
+* It is very important for the button text to be clear. In general:
+  *  “okText” should name the action that will be taken if the user proceeds (e.g. “Delete workspace”) This button
+  should be a primary danger button.
+  *  “cancelText?” should say “Cancel” unless that is unclear for some reason. This button should be a secondary button.
+  *  It is better to be descriptive but clear than concise and confusing. (anti-example: “Are you sure you want to
+  cancel your subscription? All of your data will be lost. → Cancel / Don’t Cancel”)
+* “description” Should explain the consequences of the action and end with “Are you sure you want to {action}?”
+* “header” should name the action, followed by a question mark.
+* The action name should match as closely as possible between the okText, description and header.
+
+### Accessibility
+No notes.
+
+### Technical Notes
+<CodeLocation.Confirmation/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icons
+* Modal
+* Callout
+
+Used in:
+* None

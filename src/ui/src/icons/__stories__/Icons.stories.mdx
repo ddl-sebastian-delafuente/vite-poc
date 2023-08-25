@@ -1,0 +1,77 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { LineChartOutlined } from '@ant-design/icons';
+import AllIcons, { IconType } from './AllIcons';
+import { CodeLocation, getStandardStoryPath } from '../../utils/storybookUtil';
+
+<Meta
+  title={getStandardStoryPath('Foundations/Icons')}
+  component={AllIcons}
+  argTypes={{
+    type: {
+      table: {defaultValue: {summary: IconType.Outlined}},
+      control: {
+        type: 'radio',
+        options: {
+          'Antd\'s Outlined Icons': IconType.Outlined,
+          'Antd\'s Filled Icons': IconType.Filled,
+          'Domino Icons': IconType.Domino,
+        },
+      },
+      description: 'There are three types of icons, Antd\'s Outlined, Antd\'s Filled, and Domino icons.'
+    },
+    size: {
+      table: {defaultValue: {summary: '32px'}},
+      description: 'The size of the icon.'
+    }
+  }}
+/>
+
+## Icons
+An icon is a singular, visual representation of a state, action, or entity. Our icon library consists of both Domino specific icons and Ant’s icon library.
+
+export const Template = (args) => <AllIcons {...args} />
+
+<Canvas>
+  <Story
+    name="Icons"
+    args={{
+      type: IconType.Outlined,
+      size: '32px',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Icons can be used in combination with an action, within a button or link, or stand-alone.
+When they are actionable, typically it is represented with a primary blue color. If an icon
+is used to represent status, the appropriate status color will be applied. A neutral icon
+color may be used if it is not actionable and is used to represent information. This will
+reduce visual noise and competition with actionable icons.
+
+### Accessibility
+The color of the icon shall have a high enough contrast from the background that it passes level
+AA [https://accessible-colors.com/](https://accessible-colors.com/). Avoid icons that are below
+16x16px as it may be too small to view clearly.
+
+### Technical Notes
+<CodeLocation.Icons/>
+
+### Composition
+Icons have a live area (the raw icon) and a trim area (padding between the outer bounds and the live area).
+The size of the icon is calculated as the square that contains both the trim area and the live area.
+For example, an icon set at 24x24px includes the padding around the raw icon.
+
+<div style={{border: '1px blue solid', width: '26px', height: '26px'}}>
+  <LineChartOutlined style={{fontSize: '24px'}}/>
+</div>
+
+Used in:
+* Buttons
+* Links
+* Message components
+* Form components
+* Content containers components
+* Navigation
+* Table

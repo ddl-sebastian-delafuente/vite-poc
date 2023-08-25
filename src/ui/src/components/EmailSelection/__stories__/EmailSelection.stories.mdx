@@ -1,0 +1,97 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  CodeLocation,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+import EmailSelection from '../EmailSelection'
+
+export const options = [{
+  'firstName': 'integration-test',
+  'lastName': 'integration-test',
+  'fullName': 'integration-test integration-test',
+  'userName': 'integration-test',
+  'email': 'test-notifs+integration-test@dominodatalab.com',
+  'avatarUrl': '',
+  'id': '60faf443e43b3c7a6f5f5eea'
+}, {
+  'firstName': 'Jira',
+  'lastName': 'User',
+  'fullName': 'Jira User',
+  'userName': 'jira_user_anonymous',
+  'avatarUrl': '',
+  'id': '60faf4614c38dd49ccf05fdc',
+  'email': 'jira_user_anonymous@dominodatalab.com'
+}, {
+  'firstName': 'Org',
+  'lastName': 'Org',
+  'fullName': 'Organization',
+  'userName': 'user_organization',
+  'avatarUrl': '',
+  'id': '616084397d23d03407e6ba8c',
+  email: 'user_org@dominodatalab.com'
+}];
+export const defaultValue = ['test-notifs+integration-test@dominodatalab.com','jira_user_anonymous@dominodatalab.com'];
+
+export const disabledNames = [
+  'options',
+  'onSelectionChange',
+  'defaultValue'
+];
+
+<Meta
+  title={getStandardStoryPath('Form/Select/Multi-select/Email-select')}
+  component={EmailSelection}
+  argTypes={{
+    users: {
+      description: 'Users list',
+      control: { type: 'array' }
+    },
+    defaultValue: {
+      description: 'default values with comma separated',
+      control: { type: 'array' }
+    },
+    placeholder: {
+      description: 'Placeholder of select',
+      control: { type: 'text' }
+    },
+    ...getDisabledProps(disabledNames),
+  }}
+/>
+
+## Email Selection
+An email selection component allows the user to type username and swap with appropriate email address once username is selected.
+
+export const Template = (args) => <EmailSelection {...args}/>;
+
+<Canvas>
+  <Story
+    name="Email-select"
+    args={{
+      users: options,
+      defaultValue: defaultValue,
+      size: 'default',
+      placeholder: 'Select users'
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Accessibility
+Keyboard navigation
+* Support keyboard input to navigate within a dropdown.
+* Arrow keys should enable users to quickly select a visible option without using the mouse.
+* Typing a letter should navigate to options starting with that letter.
+
+### Technical Notes
+<CodeLocation.EmailSelect/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icons
+
+Used In:
+* None

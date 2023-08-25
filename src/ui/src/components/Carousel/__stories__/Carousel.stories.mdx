@@ -1,0 +1,53 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  CodeLocation,
+  bookMarks,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+import  CarouselWrapper from '../CarouselWrapper';
+
+export const disabledNames = ['data-test'];
+
+<Meta
+  title={getStandardStoryPath('Content Containers/Carousel')}
+  component={CarouselWrapper}
+  argTypes={{
+       ...getDisabledProps(disabledNames)
+  }}
+/>
+
+## Carousel
+A Carousel is a slideshow for cycling through a series of content
+
+export const Template = (args) => <CarouselWrapper {...args} />
+
+<Canvas>
+  <Story
+    name="Carousel"
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+No notes.
+
+Configuration:
+No notes.
+
+### Accessibility
+No notes.
+
+### Technical Notes
+<CodeLocation.Carousel/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icon
+* Can contain any other component as content
+
+Used in:
+* Any

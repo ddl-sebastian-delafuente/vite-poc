@@ -1,0 +1,87 @@
+# This file is being concatenated to node_modules/@domino/api/BUILD.bazel since we have
+# link dependency in the root package.json. So, as a workaround we can't use package(...) here
+# and have to add "@domino//" prefix for internal imports.
+
+load("@build_bazel_rules_nodejs//:index.bzl", "js_library", "pkg_npm")
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
+load("@npm//storybook:index.bzl", start_storybook = "storybook")
+
+exports_files(["tsconfig.json"])
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.bzl.json",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "tsconfig.json",
+        "//frontend/packages/build-utils:tsconfig.json",
+    ],
+)
+
+alias(
+    name = "ts_outputs",
+    actual = "//frontend/packages/ui/src",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "ts_outputs_types",
+    actual = "//frontend/packages/ui/src:src_types",
+    visibility = ["//:__subpackages__"],
+)
+
+js_library(
+    name = "storybook_js",
+    srcs = glob([".storybook/*"]) + [
+        "tsconfig.jest.json",
+        "tsconfig.json",
+    ],
+    visibility = ["//frontend:__subpackages__"],
+    deps = [
+        "//frontend/packages/build-utils:tsconfig_bin",
+    ],
+)
+
+pkg_npm(
+    name = "domino_ui_components",
+    package_name = "@domino/ui",
+    srcs = glob([
+        "*",
+        "dist/**/*",
+    ]),
+    substitutions = {"1.0.0-PLACEHOLDER": "{PKG_VERSION}"},
+)
+
+start_storybook(
+    name = "storybook",
+    args = [
+        "dev",
+        "-p",
+        "6007",
+        "-c",
+        "frontend/packages/ui/.storybook",
+    ],
+    data = [
+        ":storybook_js",
+        ":ts_outputs",
+        "//frontend/packages/build-utils:js_files",
+        "//frontend/packages/style:js_files",
+        "//frontend/packages/ui/src:css_files",
+        "//frontend/packages/ui/src:stories",
+        "//frontend/packages/ui/stories",
+        "//frontend/packages/ui/tests:browser_mocks",
+    ],
+    visibility = ["//frontend:__subpackages__"],
+)
+
+filegroup(
+    name = "uncategorized_files",
+    srcs = [
+        ".babelrc.json",
+        ".storybook/main.ts",
+        ".storybook/manager-head.html",
+        ".storybook/preview.tsx",
+        "styleguide/ThemeWrapper.tsx",
+    ],
+    tags = ["uncategorized_files"],
+)

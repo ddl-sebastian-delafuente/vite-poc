@@ -1,0 +1,143 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { TreeWrapper, treeData, defaultCheckedKeys, defaultExpandedKeys, defaultSelectedKeys } from './TreeWrapper';
+import {
+  CodeLocation,
+  bookMarks,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+export const disabledNames = [
+ 'prefixCls',
+  'className',
+  'style',
+  'focusable',
+  'activeKey',
+  'tabIndex',
+  'children',
+  'fieldNames',
+  'icon',
+  'selectable',
+  'disabled',
+  'multiple',
+  'checkStrictly',
+  'draggable',
+  'defaultExpandParent',
+  'autoExpandParent',
+  'expandedKeys',
+  'checkedKeys',
+  'selectedKeys',
+  'allowDrop',
+  'titleRender',
+  'dropIndicatorRender',
+  'onFocus',
+  'onBlur',
+  'onKeyDown',
+  'onContextMenu',
+  'onClick',
+  'onDoubleClick',
+  'onScroll',
+  'onExpand',
+  'onCheck',
+  'onSelect',
+  'onLoad',
+  'loadData',
+  'loadedKeys',
+  'onMouseEnter',
+  'onMouseLeave',
+  'onRightClick',
+  'onDragStart',
+  'onDragEnter',
+  'onDragOver',
+  'onDragLeave',
+  'onDragEnd',
+  'onDrop',
+  'onActiveChange',
+  'filterTreeNode',
+  'motion',
+  'switcherIcon',
+  'height',
+  'itemHeight',
+  'virtual',
+  'direction',
+  'rootClassName',
+  'rootStyle',
+  'showLine'
+]
+
+<Meta
+  title={getStandardStoryPath('Content Containers/Tree')}
+  component={TreeWrapper}
+  argTypes={{
+    treeData: {
+      control: {type: 'array'},
+      description: 'The treeNodes data Array'
+    },
+    checkable: {
+      control: {type: 'boolean'},
+      description: 'Add a Checkbox before the treeNodes',
+    },
+    showIcon: {
+      control: {type: 'boolean'},
+      description: 'Shows the icon before a TreeNodes title'
+    },
+    defaultExpandedKeys: {
+      control: {type: 'array'},
+      description: 'Specifies the keys of the default expanded treeNodes'
+    },
+    defaultSelectedKeys: {
+      control: {type: 'array'},
+      description: 'Specifies the keys of the default selected treeNodes'
+    },
+    defaultCheckedKeys: {
+      control: {type: 'array'},
+      description: 'Specifies the keys of the default checked treeNodes'
+    },
+    ...getDisabledProps(disabledNames),
+  }}
+/>
+
+## Tree
+A tree is used to view and navigate hierarchical relationships. Most commonly, trees contain directory/file structures.
+
+export const Template = (args) => <TreeWrapper {...args}/>
+
+<Canvas>
+  <Story
+    name="Tree"
+    args={{
+      treeData: treeData,
+      checkable: false,
+      showIcon: false,
+      defaultExpandedKeys: defaultExpandedKeys,
+      defaultSelectedKeys: defaultSelectedKeys,
+      defaultCheckedKeys: defaultCheckedKeys
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Use a tree component on its own or use it inside a container like a modal or a select menu. Items in the tree can use any icons to represent that item. For collapsing and expanding the group, the caret icon and the relationship lines are standard and not to be modified.
+
+Actions
+* An item in the tree can be selected by clicking on the item or selecting a checkbox.
+* Groups can be collapsed and expanded to hide or see the nested items.
+
+### Accessibility
+* Collapsing and expanding a group should be keyboard accessible.
+* Selecting an item should be keyboard accessible.
+
+### Technical Notes
+<CodeLocation.Tree/>
+
+### Composition
+Uses:
+* Text
+* Icons
+* Checkboxes
+
+Used in:
+* Select menus 
+* Standalone
+* Content containers like a modal

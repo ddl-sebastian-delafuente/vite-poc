@@ -1,0 +1,182 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { TableWrapper as Table, dataSource, columns } from './TableWrapper';
+import {
+  CodeLocation,
+  bookMarks,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+
+export const disabledNames = [
+  'CustomUtilityBar',
+  'CustomUtilityBarJustifyContent',
+  'alwaysShowColumns',
+  'as',
+  'className',
+  'columnsToHideByDefault',
+  'data-test',
+  'defaultPageSize',
+  'defaultSelectedRowId',
+  'defaultSortKey',
+  'defaultSortOrder',
+  'disableAlwaysShowColumnsInFilterDropdown',
+  'dropdownWrapperClassName',
+  'emptyMessage',
+  'extraUtilities',
+  'filterPlaceHolder',
+  'filterPlaceHolderWidth',
+  'filterSelector',
+  'filteredColumnKeys',
+  'forwardedAs',
+  'hideColumnFilter',
+  'hideRowSelection',
+  'highlightSortedColumn',
+  'isControlled',
+  'isRowClickable',
+  'isRowHighlight',
+  'isStriped',
+  'leftSideUtilities',
+  'loading',
+  'onChange',
+  'onChangePageSize',
+  'onColumnFilterChange',
+  'onFilter',
+  'onRowClick',
+  'onRowSelect',
+  'pageNumber',
+  'pageSizeSelectorOptions',
+  'remoteFilter',
+  'resetPagination',
+  'resizable',
+  'resizeHandlerWidth',
+  'setResetPagination',
+  'showPageSizeSelector',
+  'showPagination',
+  'showSearch',
+  'showSelectedColumnsCount',
+  'tableActionsWrapperClassName',
+  'tableName',
+  'theme',
+  'totalEntries',
+  'unSelectedColumnKeys',
+];
+
+<Meta
+  title={getStandardStoryPath('Table')}
+  component={Table}
+  argTypes={{
+    columns: {
+      name: 'columns',
+      description: 'Columns configuration: This data structure can be used to set up column title, sorter, width, etc. The fixed can be set to "left" or "right" to fix specific columns while scrolling for an extra wider table.',
+    },
+    dataSource: {
+      name: 'dataSource',
+      description: 'Data configuration: This data structure can be used to set up table data.',
+    },
+    showNestedData: {
+      name: 'showNestedData',
+      control: {type: 'boolean'},
+      description: 'Whether to show nested data.',
+    },
+    scrollX: {
+      name: 'Scroll',
+      control: {
+        type: 'radio',
+        options: {
+          'Unset': null,
+          'Scroll': 1300,
+        },
+      },
+      description: 'Whether the table can be scrollable'
+    },
+    ...getDisabledProps(disabledNames),
+  }}
+/>
+
+export const defaultsProps = {
+  dataSource,
+  columns,
+  hideRowSelection: false,
+  showSearch: false,
+  hideColumnFilter: false,
+  isStriped: true,
+  highlightSortedColumn: false,
+  showPageSizeSelector: false,
+  showPagination: true,
+  showNestedData: true,
+  scrollX: {x: 'auto'},
+};
+
+## Table
+A table displays a list of objects or data in a grid format allowing many fields to be compared and scanned.
+
+It generally supports two primary activities:
+1. Comparing rows to determine which row is most interesting for further action.
+1. Locating a specific row that is known in advance to check a value or take further action.
+
+Where comparison is not needed, or the number of rows is likely to be very small (`<5`) consider <a href={bookMarks.CARD}>cards</a>.
+
+export const Template = (args) => <Table {...args}/>
+
+<Canvas>
+  <Story
+    name="Table"
+    args={defaultsProps}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Acceptable data types:
+* Use a table to display a list that has a single category of items.
+* Don’t use a table to display unrelated information.
+* Don’t use a table for layout purposes.
+
+Sorting
+* It should be clear how a table is sorted by looking at the information in the table. For example, if the data is
+sorted by date, the date should be in the table so users know why they are seeing the information in a specific order.
+
+Actions
+* Where actions can be taken on a per row basis, include an <a href={bookMarks.ITEM_LEVEL_ACTIONS_BUTTON}>item-level actions button</a>
+on each row.
+
+Identifiers
+* The far left column should be the primary identifier for the item in the row. It should be labelled based on what field
+it is rather than on the object type.
+  * Do: Name, Email
+  * Don’t: User, Project
+* The object type should be identified in the overall label of the table or the page or page section it is in.
+
+Configuration
+* Select a default row to sort by.
+* Include a clear empty state.
+
+### Accessibility
+* Mark header cells with the &lt;th&gt; tag and data cells with &lt;td&gt;. Headers should include all column headers and
+also the far left cell (the identifying column) in each row.
+* Data cells should be keyboard accessible.
+* Actions in the table should be keyboard accessible.
+* Don’t use empty columns for spacing.
+
+### Technical Notes
+<CodeLocation.Table/>
+
+### Composition
+Uses:
+* Text
+* Links
+* Buttons
+* Icons
+* Item level actions
+* Tags
+* Dropdown menus
+* Checkboxes
+* Badges
+* Filter dropdown
+* Search
+* Pagination
+
+Used in:
+* Tab
+* Accordion
+* Card

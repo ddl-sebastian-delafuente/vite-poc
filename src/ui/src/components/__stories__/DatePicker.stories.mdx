@@ -1,0 +1,175 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import moment from 'moment';
+import tooltipRenderer from '../renderers/TooltipRenderer';
+import {
+  CodeLocation,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../utils/storybookUtil';
+import DatePickerWrapper from './DatePickerWrapper';
+
+export const disabledNames = [
+  'datePickerDefaultValue',
+  'rangeDefaultValue',
+  'style',
+  'name',
+  'defaultValue',
+  'className',
+  'id',
+  'placeholder',
+  'tabIndex',
+  'role',
+  'onBlur',
+  'onChange',
+  'onFocus',
+  'onKeyDown',
+  'onClick',
+  'onContextMenu',
+  'onMouseDown',
+  'onMouseEnter',
+  'onMouseLeave',
+  'onMouseUp',
+  'onSelect',
+  'direction',
+  'value',
+  'autoFocus',
+  'onOk',
+  'transitionName',
+  'prefixCls',
+  'open',
+  'autoComplete',
+  'format',
+  'mode',
+  'getPopupContainer',
+  'dropdownClassName',
+  'defaultOpen',
+  'allowClear',	
+  'clearIcon',
+  'dropdownAlign',
+  'AlignType',
+  'suffixIcon',
+  'picker',
+  'defaultPickerValue',
+  'disabledDate',
+  'dateRender',
+  'monthCellRender',
+  'renderExtraFooter',
+  'onPanelChange',
+  'popupStyle',
+  'inputReadOnly',
+  'prevIcon',
+  'nextIcon',
+  'superPrevIcon',
+  'superNextIcon',
+  'panelRender',
+  'inputRender',
+  'onOpenChange',
+  'pickerRef',
+  'locale',	
+  'placement',
+  'bordered',
+  'status',
+  'separator',
+  'disabledTime',
+  'ranges',
+  'allowEmpty',
+  'onCalendarChange',
+  'activePickerIndex',
+  'showToday',
+  'showNow',
+  'showHour',
+  'showMinute',
+  'showSecond',
+  'use12Hours',
+  'hourStep',
+  'minuteStep',
+  'secondStep',
+  'hideDisabledOptions',
+  'disabledHours',
+  'disabledMinutes',
+  'disabledSeconds',
+  'defaultOpenValue',
+  'order'
+];
+
+<Meta
+  title={getStandardStoryPath('Form/Date picker')}
+  component={DatePickerWrapper}
+  argTypes={{
+    disabled: {
+      table: {defaultValue: {summary: false}},
+      description: 'Disable checkbox',
+      control: { type: 'boolean' }
+    },
+    range: {
+      table: {defaultValue: {summary: false}},
+      description: 'Whether to show range',
+    },
+    showTime: {
+      table: {defaultValue: {summary: false}},
+      description: 'Whether to show time',
+    },
+    disabledReason: {
+      description: 'Disabled reason to be displayed on tooltip',
+      control: { type: 'text' }
+    },
+    size: {
+      description: 'Set the size of the Date picker.',
+      options: ['small', 'default'],
+      control: {type: 'radio'},
+    },
+    ...getDisabledProps(disabledNames),
+  }}
+/>
+
+## Date Picker
+A date picker allows a user to set and view a date or date range. It can also include a time.
+
+export const Template = (args) =>
+  tooltipRenderer(args.disabled ? args.disabledReason : '', <span><DatePickerWrapper {...args} /></span>);
+
+<Canvas>
+  <Story
+    name="Date picker"
+    args={{
+      datePickerDefaultValue: moment(),
+      disabled: false,
+      disabledReason: 'Disabled Reason',
+      range: false,
+      rangeDefaultValue: [moment(), moment()],
+      showTime: false,
+      size: 'default',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Date pickers can be used for durable settings, like scheduling a job, as well as transient settings, like setting
+filters on a list of events.
+
+Consider using predefined date options to help users move more quickly:
+* Consider using defaults based on the current date/time
+- Consider using relative times. Examples:
+  - ‘Last 12 hours’ or ‘Last 7 days’ when recency of data is important, such as real time feed.
+  - ‘Last month’ or ‘Last year’ when a longer period of time is expected such as periodic reports.
+
+### Accessibility
+No notes.
+
+### Technical Notes
+<CodeLocation.DatePicker/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icons
+* Link
+* Text Input
+* Radio
+
+Used in:
+* Form
+* Wizard

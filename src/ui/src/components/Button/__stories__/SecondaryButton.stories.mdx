@@ -1,0 +1,156 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ButtonWrapper as Button } from './ButtonWrapper';
+import {
+  CodeLocation,
+  bookMarks,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+
+export const disabledNames = [
+  'actions',
+  'btnType',
+  'className',
+  'content',
+  'customIcon',
+  'dropdownDataTest',
+  'dropdownPlacement',
+  'href',
+  'htmlType',
+  'icon',
+  'iconOnlyButtonColor',
+  'iconOnlyButtonSize',
+  'isSuccess',
+  'menuContent',
+  'onClick',
+  'onMenuClick',
+  'target',
+  'testId',
+];
+
+<Meta
+  title={getStandardStoryPath('Action/Secondary Button')}
+  component={Button}
+  argTypes={{
+    buttonType: {
+      name: 'buttonType',
+      table: {defaultValue: {summary: 'secondary'}},
+      description: 'Button types:'
+    },
+    disabled: {
+      control: {type: 'boolean'},
+      table: {defaultValue: {summary: false}},
+    },
+    isDanger: {
+      control: {type: 'boolean'},
+      table: {defaultValue: {summary: false}},
+    },
+    isIconOnlyButton: {
+      control: {type: 'boolean'},
+      table: {defaultValue: {summary: false}},
+    },
+    iconType: {
+      name: 'iconType',
+      table: {defaultValue: {summary: 'None'}},
+      description: 'Icon types:'
+    },
+    children: {
+      name: 'children (text)',
+      control: 'text',
+      table: {defaultValue: {summary: 'Button'}},
+      description: 'The children of button. Typically it is the text of button.'
+    },
+    small: {
+      description: 'Whether it is a small button. It does not control iconOnly button.',
+      control: {type: 'boolean'},
+      table: {defaultValue: {summary: false}},
+    },
+    tooltipContent: {
+      table: {defaultValue: {summary: ''}},
+      description: 'Dynamically updated tooltip',
+    },
+    ...getDisabledProps(disabledNames),
+  }}
+/>
+
+## Secondary Button
+A secondary button is the default way to allow a user to take an action. There can be many secondary buttons on a page.
+Secondary buttons can contain a label only, icon only, or a combination of both.
+
+export const Template = (args) => <Button {...args}/>
+
+<Canvas>
+  <Story
+    name="Secondary Button"
+    args={{
+      buttonType: 'secondary',
+      children: 'Button',
+      disabled: false,
+      icon: '',
+      iconType: 'None',
+      isDanger: false,
+      isIconOnlyButton: false,
+      mouseEnterDelay: 0.5,
+      small: false,
+      tooltipContent: 'Your tooltip content',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Use a secondary button any time one or more actions are available for a user and no more specific component is indicated.
+
+Where multiple actions are available, consider combining them into a <a href={bookMarks.MULTI_ACTION_BUTTON}>multi-action button</a>
+or <a href={bookMarks.ITEM_LEVEL_ACTIONS_BUTTON}>item-level actions</a>. If the current context has captured intent for a
+user, and an action is required to achieve that intent, consider using a <a href={bookMarks.PRIMARY_BUTTON}>primary button</a>.
+
+When using icon buttons:
+* Use icons that are common and recognizable when using icons on its own.
+* All icon buttons should have a tooltip that indicates what the action will be. This tooltip can be customized.
+* Place them next to individual elements on the page that users can take action on.
+* Group them next to each other to reduce noise if there are multiple microinteractions on the page.
+
+When disabled, a secondary button should have a tooltip explaining what the user needs to do to make the action available.
+
+### Accessibility
+Placement
+* Ensure consistent button locations across similar screen layout contexts (eg above a table, on a popup, etc.). This is
+like how stop lights always have the same layout for red/yellow/green.
+* Secondary action buttons should appear high up the accessibility tree for screenreader users.
+* Individual icon buttons should be placed near the element it will take action on.
+* Groupings of icon buttons can be placed at the page level to indicate actions taken on the page level.
+* Icon buttons can be placed next to buttons with text labels. For example, use the “More” icon button to host additional
+actions and place it next to buttons with text labels to reduce the number of button choices up front.
+
+Tooltip
+* All icon buttons have a default tooltip that represents the action. Example: Edit icon will have a default “Edit” text
+in the tooltip. This text can be customized to be more descriptive.
+* Disabled icon buttons have a tooltip with an explicit message explaining why the button is disabled or how to enable the button.
+
+Labels
+* Button text wording should be explicit, descriptive and human readable. Example:
+  * Good: “Create document”
+  * Bad: “Create”
+* Include more descriptive “alternate text” for screenreader users. Example:
+  * Button label: “Create document”
+  * Button alternate text: “Create a new document in this project”
+  * Icon Button icon: Edit icon
+  * Icon Button alternate text: “Edit header”
+
+### Technical Notes
+<CodeLocation.Button/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icon
+
+Used in:
+* Pages
+* Tables
+* Content containers
+* Toasts
+* Callouts

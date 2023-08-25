@@ -1,0 +1,82 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  CodeLocation,
+  bookMarks,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+import  TextAreaWrapper from './TextAreaWrapper';
+
+export const sizes = ['small', 'default'];
+
+<Meta
+  title={getStandardStoryPath('Form/Input/Text area')}
+  component={TextAreaWrapper}
+  argTypes={{
+    placeholder: {
+      name: 'placeholder',
+      description: 'Input type textarea placeholder.'
+    },
+    size: {
+      description: 'Controls the size of textarea.',
+      options: sizes,
+      control: {type: 'radio'},
+      table: {defaultValue: {summary: 'default'}},
+    },
+    disabled: {
+      description: 'Field allows input or not.',
+      control: {type: 'boolean'},
+      table: {defaultValue: {summary: false}},
+    },
+    isError: {
+      description: 'Field is error or not.',
+      control: {type: 'boolean'},
+      table: {defaultValue: {summary: false}},
+    },
+  }}
+/>
+
+## Text Area
+A callout provides information that it is critical for a user to see in order to be successful when using Domino.
+
+If the information is not critical to a user’s success, consider using a <a href={bookMarks.TOOLTIP}>tooltip</a>.
+
+export const Template = (args) => <TextAreaWrapper {...args} />
+
+<Canvas>
+  <Story
+    name="Text area"
+    args={{
+      placeholder: 'Textarea placeholder',
+      size: 'default',
+      disabled: false,
+      isError: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Length of text field should be proportional to the expected user input. Using identical input length for all text fields in your forms will make them visually pleasing but will be harder to complete.
+
+Help users fill in forms:
+* Help resolve partial queries with Auto-Complete. This happens within the input box where you type and you can press either enter or “right-arrow-key” to accept it.
+* Search a virtually unbounded list for related keywords and phrases with Auto-Suggest. This list appears as a multiple suggestion list in the form of the drop-down.
+* Pre-fill fields and use smart defaults. Often you can easily detect a user’s country and the city by IP or geolocation. And based on most common scenarios and analytics you can define what should be selected by default.
+* Provide contextual information. If you know that in order to make the right decision or avoid mistakes users will need some additional information like an account balance when making a transfer, don’t hesitate to present it.
+
+
+### Accessibility
+Labels
+* Placeholders are not replacements for labels: Disappearing placeholder text without a permanent label strains users’ short-term memory. Without labels, users cannot check all information they provided before submitting a form.
+
+### Technical Notes
+<CodeLocation.Input/>
+
+### Composition
+Uses:
+* Text
+* Colors
+
+Used in:
+* None

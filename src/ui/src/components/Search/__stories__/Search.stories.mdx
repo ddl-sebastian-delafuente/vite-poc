@@ -1,0 +1,65 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { CodeLocation, getStandardStoryPath } from '../../../utils/storybookUtil';
+import Search from '../Search';
+
+<Meta
+  title={getStandardStoryPath('Navigation/Search')}
+  component={Search}
+  argTypes={{
+    size: {
+      description: 'The size of Search component. Available types are default and small.',
+      control: {type: 'radio'},
+      options: ['default', 'small'] ,
+    }
+  }}
+/>
+
+## Search
+Search enables a user to find an object that relates to an action they want to take or to some other goal.
+
+export const Template = (args) => <Search {...args} />
+
+<Canvas>
+  <Story 
+    name="Search"
+    args={{
+        placeholder : 'Search',
+        size: 'default'
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Search should be provided as often as we are able because it allows users to find things without needing to manually
+sift through our product.
+
+Search should be scoped to the current context. For example, if it is related to a list of items, it should search only
+inside that specific list.
+
+Search should be applied to as many fields as possible within the objects that are in scope. This allows a user to find
+something by knowing any piece of relevant content (not just, for example, the name of the object). At a minimum, the
+(human readable) name and the (system oriented) UID of the object should be included in search, so that if a user has a
+very specific object in mind, they can find it.
+
+### Accessibility
+More research is probably required here.
+
+Results should be displayed in a way that is accessible to screen readers and to users navigating using the keyboard
+(tab key).
+
+### Technical Notes
+<CodeLocation.Search/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icons
+* Secondary Button
+* Text Input
+
+Used in:
+* Tables
+* Nav

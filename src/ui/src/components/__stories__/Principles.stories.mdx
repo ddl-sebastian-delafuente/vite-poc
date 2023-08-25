@@ -1,0 +1,117 @@
+import { Meta } from '@storybook/addon-docs';
+import { getStandardStoryPath } from '../../utils/storybookUtil';
+
+<Meta title={getStandardStoryPath('Principles')} />
+
+# Principles
+These principles are guidelines for how we build Domino’s user experience. They are created for designers, product managers,
+and engineers to use when making decisions and creating solutions to customer problems.
+
+<hr />
+
+Domino's user experience should...
+
+### 1. Pave a smooth path
+Support users through an opinionated experience that helps them achieve their goals directly and reliably vs forcing users
+to figure it out on their own.
+
+Examples:
+* Don’t drop the user into the platform without orienting them and setting up the right expectations of the platform.
+* If a task is easier to complete with the Domino UI, don’t force users to complete the task using the API or their
+terminal if they are currently in the Domino UI.
+* Lean on the API experience intentionally rather than a replacement for creating its UI counterpart.
+* Give guidance on next steps by explaining what to do with the output of an action so that users aren’t stuck at a dead end.
+* Organize tools around user goals and workflows so that users can complete a task seamlessly.
+* Explain concepts in-page where the user is with descriptions, tooltips, popovers, and info icons, instead of forcing them
+to figure them out on their own or jumping between the developer docs and the platform.
+* Anticipate that not all users will know how and when to use the tools in Domino.
+
+Metric of success:
+* Increase of models being built.
+* Increase workflow completion (workflows dependent on feature areas).
+* Positive sentiment on Domino helping DSPs achieve their day-to-day goals.
+
+### 2. Increase user confidence
+Communicate transparently and implement consistent patterns to increase user confidence in using Domino vs assuming users
+can infer what’s not communicated and don’t notice the details.
+
+Examples:
+* Write detailed error messages that give the reasons why the error occurred and how to resolve it.
+* When choosing to display disabled states or disabled features, explain why they are disabled and what to do to enable them.
+* Give feedback through micro-animations or status messages, to indicate the action the user took was recognized.
+* Use correct grammar and spelling.
+* Design with and implement the same design language, terms and vocabulary, and branding for a consistent user experience.
+* Implement shared components so interactions and expected behaviors are consistent for the user.
+
+Metric of success:
+* Increase of models being built.
+* Increase workflow completion (workflows dependent on feature areas).
+* Reduced number of support tickets on why a feature isn’t available.
+* Reduced number of support tickets on confusion on the expected behavior of a UI interaction.
+* Reduced number of support tickets that could have been self-served.
+
+### 3. Reduce effort to value
+Automate steps and reduce cognitive load as much as possible vs requiring users to put in effort for the benefit of Domino.
+Prioritize automating steps that Domino is confident in getting correct, are low in risk, and are easy for the user to change.
+
+Examples:
+* Present only the necessary information to help users make the right choice to complete the step.
+* Use progressive disclosure to help users through options that are advanced or unlikely to be used first.
+* Automate steps that have low value compared to user effort.
+* Default configurations and settings based on what we know about the user and that are easy for users to edit.
+* Reduce cognitive load by presenting information at the moment when it’s applicable to the user’s action vs presenting
+the information too early and all at once.
+
+Metric of success:
+* Increase of models being built.
+* Increase workflow completion (workflows dependent on feature areas).
+* Positive sentiment on Domino helping DSPs achieve their day-to-day goals.
+* Reduced time to completion on configurations and set up.
+* Reduced time it takes users to start using Domino (create a project, launch a Workspace).
+
+### 4. Adapt to repeat users
+Design for the repeat, intermediate user vs treating all users as forever first time users. Create experiences that set
+the user up for success and then get out of their way.
+
+Examples:
+* Use an “Onboarding” and “Sideboarding” approach to teach users about a new feature. Onboard users to a new feature with
+the information they need to get started. Progressively guide them through the next steps (Sideboarding).
+* Onboard users, not the project. Make content dynamic to first time users vs returning users since projects may have
+multiple collaborators.
+* Allow users to opt out of warning messages that can be triggered each time the user takes an intentional action:
+“Don’t show me this again when I do X”
+* If applicable, allow keyboard shortcuts and keyboard accessibility on repeat actions like browsing through files or rows.
+* If certain information, like a help text, is only useful after the first exposure, design for it to go away to reduce
+noise during repeat usage.
+
+Metric of success:
+* Increase of models being built.
+* Increase workflow completion (workflows dependent on feature areas).
+* Increase repeat and long-term usage of Domino.
+
+<hr />
+
+### Helpers
+* Is it clear what the user should do at each step?
+* Are choices easy to understand and supported with explanations if they aren’t?
+* Are there designs and copy for unsuccessful states?
+* Are there designs and copy for empty states?
+* Is the layout checked on wide and mid screen sizes (laptop vs wide monitors)?
+* Is the copy checked for grammar, spelling, punctuation, and capitalization on Domino terms (Workspace and Model API
+are capitalized, Artifacts is plural and capitalized... )?
+* Is the design using the DDS library?
+* Are colors, fonts, interactions, and images accessible?
+* Are the terms and language used understandable to a non-data scientist?
+* Does the solution consider how users can achieve their goals proactively and reactively?
+* Did you take into consideration the inputs the user needs to accomplish the step and the output it will generate?
+* Did you try to break the product while QA’ing?
+
+<hr />
+
+### Requests
+We’ll be creating a patterns library in addition to the examples listed under each of the principles. Meanwhile,
+if there are questions on what pattern to use for a specific scenario, please enter them in the form below.
+The design team will work on adding the answers to the list of examples above and into the patterns library when we
+start that effort.
+
+[Make a request](https://forms.gle/A2hbeVgRLVsUov3DA)

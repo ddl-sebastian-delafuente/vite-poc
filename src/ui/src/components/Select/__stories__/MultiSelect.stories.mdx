@@ -1,0 +1,109 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import tooltipRenderer from '../../renderers/TooltipRenderer';
+import {
+  CodeLocation,
+  bookMarks,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+import Select from '../Select';
+
+export const options = [
+  { label: 'Jack', value: 'jack', disabled: false },
+  { label: 'Lucy', value: 'lucy', disabled: false },
+  { label: 'Disabled', value: 'disabled', disabled: true, disabledReason: 'disabled' }
+];
+
+export const disabledNames = [
+  'options',
+];
+
+<Meta
+  title={getStandardStoryPath('Form/Select/Multi-select/Standard')}
+  component={Select}
+  argTypes={{
+    disabled: {
+      table: {defaultValue: {summary: false}},
+      description: 'Whether disabled select',
+      control: { type: 'boolean' }
+    },
+    placeholder: {
+      description: 'Placeholder of select',
+      control: { type: 'text' }
+    },
+    children: {
+      description: 'Select options',
+      control: { type: 'array' }
+    },
+    disabledReason: {
+      description: 'Disabled reason to be displayed on tooltip',
+      control: { type: 'text' }
+    },
+    ...getDisabledProps(disabledNames),
+  }}
+/>
+
+## MultiSelect
+A multi-select allows a user to choose a multiple items from a list of options. It is ideal for longer lists because it
+allows searching and hides the options until the user is making a selection.
+
+If the list is short, consider using a <a href={bookMarks.CHECKBOX}>checkbox</a>. If only one item can be selected,
+consider a <a href={bookMarks.SINGLE_SELECT}>single-select</a> or <a href={bookMarks.RADIO}>radio</a>.
+
+export const getSelectTemplate = ({children, ...args}) => <Select {...args} mode="multiple" options={options}/>;
+
+export const Template = (args) => tooltipRenderer(
+  args.disabled ? args.disabledReason : '', <span>{getSelectTemplate(args)}</span>);
+
+<Canvas>
+  <Story
+    name="Standard"
+    args={{
+      disabled: false,
+      placeholder: 'Select',
+      children: options,
+      disabledReason: 'disabled',
+      size: 'default'
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+* <b>Avoid interacting dropdowns</b>, wherein the options in one menu change when users select something in another menu
+on the same page. Users can get very confused when options come and go, and it is often hard to make a desired option
+visible when it depends on a selection in a different widget.
+* <b>Gray out any unavailable options</b> instead of removing them: any items that cannot b­­e selected should remain
+in view. For extra UX credit, consider showing a tooltip help message if users hover over a grayed-out option for more
+than a second, explaining why that option is disabled and how to make it active.
+* <b>Include search</b> to ensure users can find the right options in a long list
+* <b>Group options</b> where applicable to make it easier for users to understand the options and find the right one
+* <b>Placeholder text:</b> Use placeholder text anywhere it clarifies the selection being made. Eg: “Choose a Hardware
+tier”.
+
+When not to use a multi-select:
+* If it would take your user less time to type than to select something from a dropdown, do not use a multi-select. For
+a birth date, for example, it would be easier to type the date than to use three separate dropdowns.
+* Having a multi-select with two options is a bit annoying. Especially with ‘yes/no’ questions. Checkboxes or radio
+buttons solve this nicely for these types of questions.
+* Exception to this is when the selection is presented inside a bigger component such as table or graphs and it’s more
+optimal to hide the options inside a multi-select.
+
+### Accessibility
+Keyboard navigation
+* Support keyboard input to navigate within a dropdown.
+* Arrow keys should enable users to quickly select a visible option without using the mouse.
+* Typing a letter should navigate to options starting with that letter.
+
+### Technical Notes
+<CodeLocation.SingleSelect/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icons
+
+Used In:
+* None

@@ -1,0 +1,122 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  bookMarks,
+  CodeLocation,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../utils/storybookUtil';
+import ModalWrapper from './ModalWrapper';
+
+export const disabledNames = [
+  'data-test',
+  'headerBackground',
+  'isStandardIcon',
+  'okButtonRef',
+  'testId',
+  'useLoadingButton',
+];
+
+<Meta
+  title={getStandardStoryPath('Content Containers/Modal')}
+  component={ModalWrapper}
+  argTypes={{
+    titleText: {
+      description: 'The modal dialog\'s title text',
+      control: {type: 'text'}
+    },
+    okText: {
+      description: 'Text of the OK button',
+      control: {type: 'text'}
+    },
+    cancelText: {
+      table: {defaultValue: {summary: 'Cancel'}},
+      description: 'Text of the Cancel button',
+      control: {type: 'text'}
+    },
+    isDanger: {
+      table: {defaultValue: {summary: false}},
+      control: {type: 'boolean'}
+    },
+    noFooter: {
+      table: {defaultValue: {summary: false}},
+      description: 'Hide the modal footer',
+      control: {type: 'boolean'}
+    },
+    okButtonTooltipText: {
+      description: 'Tooltip for the OK button',
+      control: {type: 'text'}
+    },
+    ...getDisabledProps(disabledNames)
+  }}
+/>
+
+## Modal
+A modal is used to contain content or actions that are related to, but separate from the current page.
+
+A modal creates focus by hiding and disabling all other content. It also maintains context by remaining on the page of
+origin.
+
+export const Template = (args) => (
+  <ModalWrapper {...args} />
+);
+
+<Canvas>
+  <Story
+    name="Modal"
+    args={{
+      cancelText: 'Cancel',
+      isDanger: false,
+      okButtonTooltipText: '',
+      okText:'Primary action',
+      noFooter: false,
+      titleText: 'Primary Action',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Use a modal in the following situations:
+* <b>Ephemeral forms:</b> Use a modal to allow entities to be created or settings to be set in situations where it would
+be difficult or disruptive to force a user into a drilldown page. Additionally, having a full page for creating a new
+entity can be navigationally awkward (as the alternative is to breadcrumb into an orphaned “create new x” page).
+* <b>Ephemeral information/details:</b> Use a modal to show details / information about an entity without forcing the
+user to lose page context by navigating them into a drilldown sub-page. This can also help in situations where the
+layout constrains the use of a drawer / accordion  “show more”. This is particularly useful when traversing down a list
+of entities and the use case demands rapid checking of each entity: full drill-downs would be annoying in these
+situations.
+* <b>On-boarding / education:</b> A modal can house information that is relevant once but doesn’t need to present on
+the page all the time. This can be triggered by a detected event (such as stopping a workspace) or an info icon click
+target. When automatically triggered, be sure to include the “do not show again” option tied to the user’s browser.
+* <b>Confirmations:</b> A modal can confirm user intent around dangerous actions.
+See <a href={bookMarks.CONFIRMATION}>confirmation</a>.
+
+Avoid using a modal in the following situations:
+* When the information in the modal needs to be compared with information in other modals or on the rest of the page. In
+this case, consider using an <a href={bookMarks.ACCORDION}>accordion</a>.
+* When there’s an Information Architecture relationship that needs to be clear, and demands true navigational
+representation of a “sub-page”. In this case, consider using <a href={bookMarks.TABS}>tabs</a>.
+* When there is a need to be able to deep link to the content inside the modal. In this case, consider
+using <a href={bookMarks.TABS}>tabs</a>.
+* When the content is short enough to be shown in a popover or <a href={bookMarks.TOOLTIP}>tooltip</a>.
+
+Because of the possibility of losing work, a modal should retain settings entered into it even when closed (as long as
+the page is not reloaded).
+
+### Accessibility
+Requires further research.
+
+### Technical Notes
+<CodeLocation.Modal/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icon
+* Button
+* Can contain any other component
+
+Used in:
+* None

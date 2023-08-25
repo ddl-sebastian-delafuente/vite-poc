@@ -1,0 +1,98 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  CodeLocation,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+import PopoverWrapper from './PopoverWrapper';
+
+<Meta
+  title={getStandardStoryPath('Content Containers/Popover')}
+  component={PopoverWrapper}
+  argTypes={{
+    title: {
+      description: 'The popover title',
+      control: {
+        type: 'text'
+      }
+    },
+    content: {
+      description: 'The popover content',
+      control: {
+        type: 'text'
+      }
+    },
+    placement: {
+      description: 'The popover placement',
+      defaultValue: 'right',
+      control: {
+        type: 'select',
+        options: {
+          top: 'top',
+          left: 'left',
+          right: 'right',
+          bottom: 'bottom',
+          topLeft: 'topLeft',
+          topRight: 'topRight',
+          bottomLeft: 'bottomLeft',
+          bottomRight: 'bottomRight',
+          leftTop: 'leftTop',
+          leftBottom: 'leftBottom',
+          rightTop: 'rightTop',
+          rightBottom: 'rightBottom'
+        }
+      }
+    }
+  }}
+/>
+
+## Popover
+Shows detailed information or actions on hover. It provides the option for richer content and more interactivity than a tooltip.
+
+export const Template = (args) => <PopoverWrapper {...args} />
+
+<Canvas>
+  <Story
+    name="Popover"
+    args={{
+      title: 'Popover title',
+      content: 'Conveniently initiate viral synergy without multi functional platforms.',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Use a popover
+* To progressively disclose rich content or simple actions and show them in context.
+* To add interactivity:
+  * While maintaining the context of the parent / click target.
+  * Without breaking the flow happening on a page.
+
+Do not use a popover when:
+  * If the content is only short text, consider using a <a href={bookMarks.TOOLTIP}>tooltip</a>.
+  * If the content is longer or requires extended interactivity (like filling out a form) consider using
+  an <a href={bookMarks.ACCORDION}>accordion</a> or <a href={bookMarks.MODAL}>modal</a>.
+
+### Accessibility
+Requires further research.
+
+### Technical Notes
+<CodeLocation.Popover/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icon
+
+Used in:
+* None
+
+Used in:
+* Primary Button
+* Secondary Button
+* Multi-Action Button Menu
+* Item-Level Actions Button Menu
+* Toggle
+* Forms

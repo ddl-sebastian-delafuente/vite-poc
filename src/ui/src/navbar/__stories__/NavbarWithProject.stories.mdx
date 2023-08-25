@@ -1,0 +1,109 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  CodeLocation,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../utils/storybookUtil';
+import { defaultProps, flags } from './NavbarWrapper';
+import NavbarWrapper from './NavbarWrapper';
+
+export const disabledNames = [
+  'areStagesStale',
+  'currentUser',
+  'dmmLink',
+  'globalSocket',
+  'isMixpanelOff',
+  'isNucleusApp',
+  'loading',
+  'location',
+  'onError',
+  'primaryCollapsed',
+  'project',
+  'projectStageAndStatus',
+  'setAreStagesStale',
+  'setGlobalSocket',
+  'updateProject',
+  'updateProjectStageAndStatus',
+  'userId',
+  'username',
+  'whiteLabelSettings',
+];
+
+<Meta
+  title={getStandardStoryPath('Navigation/Nav Bar L2')}
+  component={NavbarWrapper}
+  argTypes={{
+    pathnameOverride: {
+      name: 'active secondary location',
+      description: 'Choose the active secondary location. While Nav Bar is displayed, you can choose Overview to come back the main list.',
+      control: {
+        type: 'select',
+        options: {
+          'Overview': '/u/integration-test/quick-start/overview',
+          'Activity': '/activity/integration-test/quick-start',
+          'Review': '/u/integration-test/quick-start/reviews',
+          'Workspace': '/workspace/integration-test/quick-start',
+          'Jobs': '/jobs/integration-test/quick-start',
+          'Code': '/u/integration-test/gitbased/code',
+          'Data': '/u/integration-test/quick-start/data',
+          'Files': '/u/integration-test/quick-start/browse',
+          'Scheduled Jobs': '/u/integration-test/quick-start/scheduledruns',
+          'App': '/launchpad-publisher/integration-test/quick-start/publishApp',
+          'Model APIs': '/u/integration-test/quick-start/endpoints/modelManager',
+          'Launchers': '/u/integration-test/quick-start/endpoints/launchers',
+          'Settings': '/u/integration-test/quick-start/settings'
+        },
+      },
+    },
+    flags: {
+      description: 'Feature flag values'
+    },
+    ...getDisabledProps(disabledNames),
+  }}
+/>
+
+## Nav Bar L2
+The Nav Bar L2 indicates the pages at the second level of the product’s IA. Currently, this is only used when a user is
+located inside of a project.
+
+export const Template = (args) => (
+  <NavbarWrapper {...args} />
+);
+
+<Canvas>
+  <Story
+    name="Nav Bar L2"
+    args={
+      {
+        flags,
+        location: {pathname: '/u/integration-test/quick-start/overview'},
+        pathnameOverride: '/u/integration-test/quick-start/overview',
+        ...defaultProps
+      }
+    }>
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+The Nav Bar L2 should be visible (expanded or collapsed) on every page in the product.
+* The user’s current location in the L2 nav should always be highlighted, even when the user navigates to levels below
+L2.
+* The user can optionally collapse the L2.
+
+### Accessibility
+Requires further research.
+
+### Technical Notes
+<CodeLocation.Navbar/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icon
+* Links
+
+Used in:
+* Page

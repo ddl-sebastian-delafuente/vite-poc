@@ -1,0 +1,30 @@
+html, body {
+  font-family: Roboto, Lato, Helvetica Neue, Helvetica, Arial, sans-serif;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.docs-story {
+  max-height: 320px;
+}
+
+.ant-notification-notice-close {
+  top: 9px !important;
+}
+.ant-notification-notice-with-icon .ant-notification-notice-message {
+  margin-bottom: 0;
+  margin-left: 40px;
+  line-height: 22px;
+}
+.ant-notification-notice-icon {
+  line-height: 22px;
+}
+.no-close-icon .ant-notification-notice-close {
+  display: none;
+}
+.darkClass, .darkClass .docs-story {
+  background: rgba(51, 51, 51, 1);
+}

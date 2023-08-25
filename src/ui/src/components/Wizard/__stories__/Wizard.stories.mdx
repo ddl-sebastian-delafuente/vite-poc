@@ -1,0 +1,133 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  bookMarks,
+  CodeLocation,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+import WizardWrapper, { steps } from './WizardWrapper';
+
+export const disabledNames = [
+  'actionsStyle',
+  'cancelBtnText',
+  'contentWidth',
+  'data-test',
+  'defaultStep',
+  'dividerAboveActionsWidth',
+  'doNotIncludeSteps',
+  'headerBackground',
+  'height',
+  'isDanger',
+  'mainContentStyle',
+  'noFooter',
+  'okButtonRef',
+  'okButtonTooltipText',
+  'outlineSecondaryButton',
+  'shouldCompleteAllPreviousSteps',
+  'stepsPadding',
+  'stepsWidth',
+  'testId',
+  'useLoadingButton',
+  'viewPrevStepBtnText',
+  'isStandardIcon',
+  'modalWidth',
+  'bodyHeight',
+  'steps'
+];
+
+<Meta
+  title={getStandardStoryPath('Content Containers/Wizard')}
+  component={WizardWrapper}
+  argTypes={{
+    titleText: {
+      description: 'The wizard\'s title text',
+      control: {type: 'text'}
+    },
+    steps: {
+      description: 'The steps data',
+    },
+    primaryAction: {
+      description: 'The primary action button name',
+    },
+    hideSteps: {
+      description: 'Hide steps',
+    },
+    allowForwardNavigationWithErrors: {
+      description: `Allow user to advance to the next step even if there is an error`,
+    },
+    modalWidth: {
+      description: 'Modal width',
+    },
+    bodyHeight: {
+      description: 'Modal body height',
+    },
+    ...getDisabledProps(disabledNames),
+  }}
+/>
+
+export const defaultsProps = {
+  titleText: 'Primary Action',
+  steps,
+  primaryAction: 'Finish',
+  hideSteps: false,
+  allowForwardNavigationWithErrors: true,
+  modalWidth: '760px',
+  bodyHeight: '480px'
+};
+
+## Wizard
+A wizard allows a settings form to be split up into multiple steps.
+
+export const Template = (args) => (
+  <WizardWrapper {...args} />
+);
+
+<Canvas>
+  <Story
+    name="Wizard"
+    args={defaultsProps}>
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Use a Wizard any time a form would benefit from being broken up into multiple steps. Examples:
+* When a form <a href={bookMarks.MODAL}>modal</a> is needed but there is too much content to comfortably fit in a single page.
+* When a form or setup flow involves complexity that can be clarified by creating separate steps.
+* When a form has some primary fields that require population every time, but many fields that are optional or have sensible
+defaults that the user would rarely modify. Note: With sensible defaults, consider having the wizard “remember” settings
+like frequently or most recently used hardware tier.
+
+Recommendations:
+* Skipping steps
+  * When possible, consider including a green colored “Launch now (or save now)” button that skips the remaining steps
+  and attempts to execute the wizard with the remaining defaults.
+  * The ability to skip steps is especially important when the same wizard modal is used to edit an already-crafted entity
+  and it would be annoying to force a user to step through everything just because one setting had to change.
+* How to define steps
+  * Optimize the first page (step) of the wizard to show the most frequently changed and required fields. Consider pushing
+  fields that are optional or have “sticky” defaults that rarely change into later steps of the wizard.
+  * Try to cluster related fields under logical groups for the remaining steps of a wizard
+* Subtext beneath the wizard steps
+  * These should be used to summarize the settings (or default settings) for that section of the wizard.
+  * This is especially useful because it prevents too much memory load on the user as they attempt to recall what they
+  set as they step through, or confidence to hit “launch now” without having to check the defaults on optional areas.
+
+### Accessibility
+Decrease mental load for users by using the subtext below each step’s name to summarize the current settings for that section.
+
+### Technical Notes
+<CodeLocation.Wizard/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icon
+* Button
+* Form
+* Modal
+
+Used in:
+* None

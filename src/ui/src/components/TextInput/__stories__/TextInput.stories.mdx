@@ -1,0 +1,156 @@
+import {Canvas, Meta, Story} from '@storybook/addon-docs';
+import {
+  CodeLocation,
+  bookMarks,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+import  TextInputWrapper from './TextInputWrapper';
+
+export const disabledNames = [
+  'onStart',
+  'onChange',
+  'onCancel',
+  'handleFailableSubmit',
+];
+
+<Meta
+  title={getStandardStoryPath('Form/Input/Text input')}
+  component={TextInputWrapper}
+  argTypes={{
+    value: {
+      description: 'Value for `Input` / `EditInline`.',
+      control: {type: 'text'},
+      table: {defaultValue: {summary: 'Input Value'}},
+    },
+    placeholder: {
+      description: 'Input type text placeholder.',
+      control: {type: 'text'},
+      table: {defaultValue: {summary: 'Set Text Input'}}
+    },
+    size: {
+      description: 'Set the size of the input.',
+      options: ['small', 'default'],
+      control: {type: 'radio'},
+      table: {defaultValue: {summary: 'default'}},
+    },
+    isPassword: {
+      description: 'Field is for password or not.',
+      control: {type: 'boolean'},
+      table: {defaultValue: {summary: false}},
+    },
+    disabled: {
+      description: 'Field allows input or not.',
+      control: {type: 'boolean'},
+      table: {defaultValue: {summary: false}},
+    },
+    isError: {
+      description: 'Field is error or not.',
+      control: {type: 'boolean'},
+      table: {defaultValue: {summary: false}},
+    },
+    isEditInline: {
+      description: 'Controls whether the component can behave as a pure input, or an `EditInline` component.',
+      control: {type: 'boolean'},
+      table: {defaultValue: {summary: false}},
+    },
+    disabledReason: {
+      description: 'Tooltip text to show when `Input` is disabled.',
+      control: {type: 'text'},
+      table: {defaultValue: {summary: 'Input is disabled'}},
+    },
+    ...getDisabledProps(disabledNames),
+  }}
+/>
+
+## Text Input
+A `TextInput` allows a user to type a value.
+
+If you expect a long value, consider using a <a href={bookMarks.TEXTAREA}>textarea</a>.
+
+## Edit Inline
+
+An `EditInline` component provides an interactive input component which can be edited on either clicking the text or icon.
+If there's no need for the input to be editable, consider using the `TextInput` aforementioned or <a href={bookMarks.TEXTAREA}>textarea</a>.
+
+---
+
+
+### Interactive Component
+
+_It's better to navigate to the_ Canvas _section to play around with the component._
+
+export const Template = (args) => <TextInputWrapper {...args} />
+
+<Canvas>
+  <Story
+    name="Text input"
+    args={{
+      value: 'Edit Inline',
+      placeholder: 'Input placeholder',
+      size: 'default',
+      isPassword: false,
+      disabled: false,
+      isError: false,
+      isEditInline: false,
+      disabledReason: 'Input is disabled'
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+
+#### Input
+
+Length of text field should be proportional to the expected user input. Using identical input length for all text fields in your forms will make them visually pleasing but will be harder to complete.
+
+Help users fill in forms:
+* Help resolve partial queries with Auto-Complete. This happens within the input box where you type and you can press either enter or “right-arrow-key” to accept it.
+* Search a virtually unbounded list for related keywords and phrases with Auto-Suggest. This list appears as a multiple suggestion list in the form of the drop-down.
+* Pre-fill fields and use smart defaults. Often you can easily detect a user’s country and the city by IP or geolocation. And based on most common scenarios and analytics you can define what should be selected by default.
+* Provide contextual information. If you know that in order to make the right decision or avoid mistakes users will need some additional information like an account balance when making a transfer, don’t hesitate to present it.
+
+#### EditInline
+
+`EditInline` should be used whenever we want an input that needs to be interactive in-place.
+
+Some places where this component will be useful would be `Titles`, `Headers`, inline-text content, etc, all 
+of which can be editable in nature.
+
+### Accessibility
+Labels
+* Placeholders are not replacements for labels: Disappearing placeholder text without a permanent label strains users’ short-term memory. Without labels, users cannot check all information they provided before submitting a form.
+
+Keyboard Navigation
+* Users should be able to use `tab` key to navigate the component to use it.
+
+### Technical Notes
+
+#### Input
+<CodeLocation.Input/>
+
+#### EditInline
+<CodeLocation.EditInline/>  
+
+* Get into Edit Mode by either clicking on the text/icon.
+* When `isEditInline` is `false`, this component is similar to a normal `input`.
+* If `disabled` prop's value is `true`, the component becomes a non-interactive un-editable disabled text.
+* For the internal component `EditInline`, while editing:
+  * Clicking outside the input box OR pressing the `Esc` key will trigger the `onCancel` callback.
+  * Pressing the `Enter` key will trigger the `onUpdate` callback.
+  * On every keystroke, `onChange` callback is triggered.
+
+**NOTE**: `EditInlineContainer` uses `EditInline` internally. In `EditInline`, unlike `EditInlineContainer`, state is NOT managed,
+and so whenever `EditInline` component is used, please check the code in [EditInlineContainer.tsx](https://github.com/cerebrotech/domino/blob/develop/frontend/packages/ui/src/components/EditInline/EditInlineContainer.tsx)
+for reference. `EditInline` in this storybook is also using the state managed `EditInlineContainer` component.
+
+### Composition
+Uses:
+* Text
+* Colors
+
+Used in:
+* Search
+* Interactive Names/Text

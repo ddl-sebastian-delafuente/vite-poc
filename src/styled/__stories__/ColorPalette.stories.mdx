@@ -1,0 +1,136 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { getStandardStoryPath, getDisabledProps } from '../../utils/storybookUtil';
+import { ColorPaletteWrapper, defaultColorPalette, options, Template } from './ColorPaletteWrapper';
+
+export const disabledNames = [
+  'semanticTokens',
+  'updateArgs',
+  'resetArgs'
+];
+
+<Meta
+  title={getStandardStoryPath('Foundations/Colors')}
+  component={ColorPaletteWrapper}
+  argTypes={{
+    content: {
+      control: { type: 'select', options: options },
+      description: 'Text and icons'
+    },
+    contentD1: {
+      control: { type: 'select', options: options },
+      description: 'Secondary test, Form borders, Disabled actions'
+    },
+    contentD2: {
+      control: { type: 'select', options: options },
+      description: 'Lines and Visual borders'
+    },
+    background: {
+      control: { type: 'select', options: options },
+      description: 'Background: Components'
+    },
+    backgroundD1: {
+      control: { type: 'select', options: options },
+      description: 'Background: Pages, De-emphasis'
+    },
+    backgroundD2: {
+      control: { type: 'select', options: options },
+      description: 'Background: Disabled'
+    },
+    highlight: {
+      control: { type: 'select', options: options },
+      description: 'Highlight'
+    },
+    action: {
+      control: { type: 'select', options: options },
+      description: 'Actions'
+    },
+    actionE: {
+      control: { type: 'select', options: options },
+      description: 'Actions - Hover, Click'
+    },
+    danger: {
+      control: { type: 'select', options: options },
+      description: 'Danger'
+    },
+    dangerD: {
+      control: { type: 'select', options: options },
+      description: 'Danger - background'
+    },
+    warning: {
+      control: { type: 'select', options: options },
+      description: 'Warning'
+    },
+    warningD: {
+      control: { type: 'select', options: options },
+      description: 'Warning - Background'
+    },
+    success: {
+      control: { type: 'select', options: options },
+      description: 'Success'
+    },
+    successD: {
+      control: { type: 'select', options: options },
+      description: 'Success - Background'
+    },
+    navContent: {
+      control: { type: 'select', options: options },
+      description: 'Nav - Text'
+    },
+    navContentE: {
+      control: { type: 'select', options: options },
+      description: 'Nav - Highlighted Text'
+    },
+    navHighlight: {
+      control: { type: 'select', options: options },
+      description: 'Nav - Selected'
+    },
+    navBackground: {
+      control: { type: 'select', options: options },
+      description: 'Nav - Background L2'
+    },
+    navBackgroundD1: {
+      control: { type: 'select', options: options },
+      description: 'Nav - Background L1'
+    },
+    ...getDisabledProps(disabledNames)
+  }}
+/>
+
+## Colors
+There are two primary goals in how our UI uses color:
+1. Create a pleasing visual aesthetic.
+1. Communicate meaning clearly and consistency.
+
+DDS therefore has two sets of color tokens, one for each of these goals.
+
+<Canvas>
+  <Story
+    name="Colors"
+    args={defaultColorPalette}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Color Tokens
+Color tokens define the space of all the colors that are available within our UI. They do this by mapping to specific
+hex values.
+
+This mapping reduces the number of possible colors from 16 million down to 60. If this smaller list of colors is
+well-chosen, none of the available colors should clash with each other, and we should have all the colors we need to
+build UIs.
+
+### Semantic Tokens
+Semantic tokens ensure a consistent use of color for a given meaning within the UI. They do this by mapping to color tokens.
+
+As an example, <code>content</code> and <code>background</code> are the default semantic tokens for text and background
+colors, respectively. With all component styles using these tokens to color their text and backgrounds, it is possible
+to create an alternate color scheme like dark mode, where all text is light and all backgrounds are dark. Because the
+semantic tokens are defined in one place, we can make one change and have it impact the UI in a predictable manner.
+
+### Usage
+For this system of color to work, we must follow a two rules:
+
+1. <b>Color token definitions are the only place in our UI where hex values should exist. All other usage of color must
+reference the color tokens rather than hex values directly.</b>
+1. <b>UI elements and their styles should ONLY reference semantic tokens.</b>

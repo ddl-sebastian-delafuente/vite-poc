@@ -1,0 +1,43 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  getDevStoryPath
+} from '../../../../../utils/storybookUtil';
+import CodeViewer from '../CodeViewer';
+
+export const code = `import * as React from 'react';
+const App = () => {
+  return (
+    <div>
+       <h1> Header </h1>
+       <div>Description</div>
+    </div>
+  );
+};`;
+
+<Meta
+  title={getDevStoryPath('Components/CodeViewer')}
+  component={CodeViewer}
+  argTypes={{
+    code: {
+      description: 'Code to be displayed',
+      control: { type: 'text' }
+    },
+    language: {
+      control: { type: 'text' }
+    }
+  }}
+/>
+
+export const Template = (args) => <CodeViewer {...args} />
+
+<Canvas>
+  <Story
+    name="CodeViewer"
+    args={{
+      code: code,
+      language: "tsx"
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

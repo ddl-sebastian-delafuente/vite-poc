@@ -1,0 +1,81 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  bookMarks,
+  CodeLocation,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+import Accordion from '../Accordion';
+
+export const disabledNames = [
+  'dataTest',
+  'isShowMore',
+  'isCollapsed'
+];
+
+<Meta
+  title={getStandardStoryPath('Content Containers/Accordion')}
+  component={Accordion}
+  argTypes={{
+    title: {
+      description: 'Title of the panel'
+    },
+    children: {
+      description: 'Content to be displayed',
+      control: 'text'
+    },
+    ...getDisabledProps(disabledNames)
+  }}
+/>
+
+## Accordion
+An accordion hides and shows content that might be distracting if it were visible all the time.
+
+export const Template = (args) => <Accordion {...args}/>
+
+<Canvas>
+  <Story
+    name="Accordion"
+    args={{
+      title: 'Title',
+      children: 'Content',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Use an accordion:
+* To provide progressive disclosure by showing detailed info and/or actions when needed without overwhelming users by
+making the content visible all the time.
+* When a modal to show the detail is not practical:
+  * Because the modal would be disruptive or would interrupt a workflow.
+  * When detailed content might need to be compared across multiple accordions at once.
+* To provide an extended view of a card or other summary.
+* If the content is short, consider using a <a href={bookMarks.POPOVER}>popover</a> or <a href={bookMarks.TOOLTIP}>tooltip</a>.
+
+Recommendations
+* When collapsed, an accordion should have a useful and informative title. This could be either:
+  * A label or heading that explains whats inside Example: “Hardware Utilization”
+  * A very succinct summary of the info inside. Example: “50% CPU 60% MEM”, but when opened the accordion reveals a full
+time series chart for each metric.
+  * A collapsed accordion should never be blank.
+* Accordions should generally default to being collapsed.
+
+### Accessibility
+Requires more research.
+
+### Technical Notes
+<CodeLocation.Accordion/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icons
+
+Used in:
+* Page
+* Modal
+* Any other container

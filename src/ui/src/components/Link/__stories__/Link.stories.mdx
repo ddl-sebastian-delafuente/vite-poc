@@ -1,0 +1,82 @@
+import {Canvas, Meta, Story} from '@storybook/addon-docs';
+import {LinkWrapper as Link} from './LinkWrapper';
+import {
+  CodeLocation,
+  bookMarks,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+
+export const disabledNames = [
+  'className',
+  'dataTest',
+  'direction',
+  'disabled',
+  'disabledReason',
+  'icon',
+  'isBold',
+  'isClicked',
+  'isUnderlined',
+  'onClick',
+  'shouldTruncateAt',
+  'type',
+];
+
+<Meta
+  title={getStandardStoryPath('Action/Link')}
+  component={Link}
+  argTypes={getDisabledProps(disabledNames)}
+/>
+
+## Link
+A link allows a user to navigate to another page inside or outside of Domino’s product.
+
+
+export const Template = (args) => <Link {...args} />
+
+<Canvas>
+  <Story
+    name="Link"
+    args={{
+      href: 'https://www.dominodatalab.com/',
+      children: 'Link',
+      openInNewTab: true,
+      download: false,
+      title: 'title',
+      type: "icon-link-end",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Use a link for navigation. When an action has a non-navigational outcome, use a <a href={bookMarks.SECONDARY_BUTTON}>secondary button</a>
+or other action component.
+
+In general, link text should name the location the user will be taken to:
+* Good: “Project Foo”
+* Bad: “Open”
+
+Links can act in two ways:
+* Open in new browser tab
+  * This is the default behavior in Domino because it maintains users’ context when they might be engaged in a complex task or workflow.
+  * When a link opens in a new tab, it should include a “new tab” icon.
+- Load in same browser tab
+  - This behavior should be used when a link moves a user within the same context they were already in. For example, if a user is looking at a list of projects and then clicks into a specific project, the link destination should load in the same browser tab.
+
+### Accessibility
+Alternate text
+* Screenreader alternate text should be descriptive, especially if link text is terse or non-specific (eg “More info”).
+
+### Technical Notes
+<CodeLocation.Link/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icon
+
+Used in:
+* None

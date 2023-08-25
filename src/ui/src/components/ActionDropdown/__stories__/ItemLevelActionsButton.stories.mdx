@@ -1,0 +1,80 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { defaultActions, ItemLevelActionsButtonWrapper } from './ItemLevelActionsButtonWrapper';
+import {
+  CodeLocation,
+  bookMarks,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+
+<Meta
+  title={getStandardStoryPath('Action/Item-Level Actions Button')}
+  component={ItemLevelActionsButtonWrapper}
+  argTypes={{
+    actions: {
+      name: 'actions',
+      description: 'An array of actions. It would be easier if you use raw to format the control.',
+      control: {
+        type: 'array',
+      },
+    }
+  }}
+/>
+
+## Item-Level Actions Button
+An item-level actions acts component combines multiple actions into a single element and provides them as a list of
+actions inside of a menu.
+
+This is similar to the <a href={bookMarks.MULTI_ACTION_BUTTON}>multi-action button</a> but is scoped to the
+context of an object type that is listed multiple times on the same page. For example, where a page or tab might have a
+multi-action button, a table row or a card would use an item-level actions button.
+
+export const Template = (args) => <ItemLevelActionsButtonWrapper {...args} />
+
+<Canvas>
+  <Story
+    name="Item-Level Actions Button"
+    args={defaultActions}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Use an item level-actions button when there multiple actions that relate to the same object, especially if similar
+objects could appear repeatedly.
+
+Combine actions wherever possible. Doing this provides a few benefits:
+1. Reduce visual noise on the page by progressively disclosing the available actions.
+1. Make actions easier to find by co-locating them.
+1. Allow for more descriptive action names because the text doesn't take up space in the UI.
+
+Item-level actions buttons cannot be disabled. However, any action inside the list of actions could be disabled. A
+disabled action should have a tooltip explaining what the user needs to do to make the action available.
+
+### Accessibility
+Placement
+* Ensure consistent button locations across similar screen layout contexts (eg above a table, on a popup, etc.). This is
+like how stop lights always have the same layout for red/yellow/green.
+* Item level actions should appear within the object they relate to. Inside this object, they should be high up the
+accessibility tree for screenreader users.
+
+Labels
+* The item-level actions button will usually not have a label. It should have alternate text that says “Actions for \{object name\}”
+In the list of actions, the action text wording should be explicit, descriptive and human readable. Example:
+  * Good: “Create document”
+  * Bad: “Create”
+* Include more descriptive “alternate text” for screenreader users. Example:
+  * Action label: “Create document”
+  * Action alternate text: “Create a new document in this project”
+
+### Technical Notes
+<CodeLocation.ActionDropdown/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icon
+
+Used in:
+* Modal

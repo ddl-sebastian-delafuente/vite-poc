@@ -1,0 +1,26 @@
+{
+  "extends": "../build-utils/tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "sourceMap": true,
+    "allowJs": false,
+    "outDir": "dist",
+    "plugins": [
+      {
+        "name": "@bazel/tsetse",
+        "disabledRules": [
+          "ban-string-initialized-sets",
+          "must-use-promises",
+          "must-type-assert-json-parse"
+        ]
+      }
+    ]
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "src/**/__tests__/**/*.test.ts",
+    "src/**/__tests__/**/*.test.tsx",
+  ]
+}

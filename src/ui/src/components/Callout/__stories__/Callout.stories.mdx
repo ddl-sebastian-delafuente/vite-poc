@@ -1,0 +1,83 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  CodeLocation,
+  bookMarks,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+import InfoBoxWrapper from './InfoBoxWrapper';
+
+export const disabledNames = [
+  'data-test',
+  'icon',
+  'className',
+  'fullWidth',
+  'theme',
+  'PrimaryAction',
+  'link',
+  'linkText',
+  'alternativeIcon',
+  'iconSize'
+];
+
+<Meta
+  title={getStandardStoryPath('Message/Callout')}
+  component={InfoBoxWrapper}
+  argTypes={{
+    type: {
+      description: 'Type of Callout'
+    },
+    children: {
+      description: 'The content of Callout.',
+      control: {type: 'text'},
+    },
+    ...getDisabledProps(disabledNames)
+  }}
+/>
+
+## Callout
+A callout provides information that it is critical for a user to see in order to be successful when using Domino.
+
+If the information is not critical to a user’s success, consider using a <a href={bookMarks.TOOLTIP}>tooltip</a>.
+
+export const Template = (args) => <InfoBoxWrapper {...args} />
+
+<Canvas>
+  <Story
+    name="Callout"
+    args={{
+      type: 'info',
+      children: 'Supplemental message',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Callouts should be located as close as possible to the object their information impacts.
+
+A callout’s message should be concise. Use links to contain additional information or details or to point a user to
+documentation.
+
+Links should also be used when a callout refers to other objects in domino. (These should open in a new tab.)
+
+Configuration:
+* Supplemental callouts should be blue with an info icon.
+* Warning callouts should be red with a danger icon.
+
+### Accessibility
+No notes.
+
+### Technical Notes
+<CodeLocation.Callout/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icons
+* Link
+
+Used in:
+* Confirmation

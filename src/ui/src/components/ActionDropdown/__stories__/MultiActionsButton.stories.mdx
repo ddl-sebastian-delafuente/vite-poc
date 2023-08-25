@@ -1,0 +1,108 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import ActionDropdown from '../ActionDropdown';
+import {
+  CodeLocation,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+import SecondaryButton from '../../SecondaryButton';
+
+export const disabledNames = [
+  'CustomTrigger',
+  'buttonProps',
+  'caretIcon',
+  'className',
+  'closeOnClick',
+  'dataTest',
+  'disabled',
+  'dropdownStyle',
+  'expandDropdown',
+  'fontSize',
+  'getPopupContainer',
+  'icon',
+  'menuStyle',
+  'menuTestKey',
+  'onMenuClick',
+  'onVisibleChange',
+  'placement',
+  'preventClickPropagation',
+  'showCaret',
+  'width',
+];
+
+<Meta
+  title={getStandardStoryPath('Action/Multi-Action Button')}
+  component={ActionDropdown}
+  argTypes={getDisabledProps(disabledNames)}
+/>
+
+## Multi-Action Button
+A multi-action button combines multiple actions into a single element and provides them as a list of actions inside of
+a menu.
+
+
+export const Template = (args) => <ActionDropdown {...args} />
+
+<Canvas>
+  <Story
+    name="Multi-Action Button"
+    args={{
+      menuItems: [{
+        key: 'action1',
+        content: 'Action 1',
+        disabled: false
+      }, {
+        key: 'action2',
+        content: 'Action 2',
+        disabled: false
+      }, {
+        key: 'action3',
+        content: 'Action 3',
+        disabled: false
+      }],
+      label: 'Actions',
+      showCaret: true,
+      CustomTrigger: SecondaryButton
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Use a multi-action button when there multiple actions that relate to the same context.
+
+Combine actions wherever possible. Doing this provides a few benefits:
+1. Reduce visual noise on the page by progressively disclosing the available actions.
+1. Make actions easier to find by co-locating them.
+1. Allow for more descriptive action names because the text doesn’t take up space in the UI.
+
+Multi-action buttons cannot be disabled. However, any action inside the list of actions could be disabled. A disabled
+action should have a tooltip explaining what the user needs to do to make the action available.
+
+### Accessibility
+Placement
+* Ensure consistent button locations across similar screen layout contexts (eg above a table, on a popup, etc.). This is like how stop lights always have the same layout for red/yellow/green.
+* Buttons should appear high up the accessibility tree for screenreader users
+
+Labels
+* The multi-action button should usually be labelled “Actions”. It can have a more specific name when this makes sense
+ (for example to distinguish between multiple multi-action buttons that are visible at the same time).
+- In the list of actions, the action text wording should be explicit, descriptive and human readable. Example:
+  - Good: “Create document”
+  - Bad: “Create”
++ Include more descriptive “alternate text” for screenreader users. Example:
+  + Action label: “Create document”
+  + Action alternate text: “Create a new document in this project”
+
+### Technical Notes
+<CodeLocation.ActionDropdown/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icon
+
+Used in:
+* None

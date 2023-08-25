@@ -1,0 +1,93 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import * as R from 'ramda';
+import {
+  bookMarks,
+  CodeLocation,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+import NavTabs, { NavTabPane } from '../NavTabs';
+
+export const disabledNames = [
+  'extraActionButton'
+];
+
+<Meta
+  title={getStandardStoryPath('Content Containers/Tabs')}
+  component={NavTabs}
+  argTypes={{
+    tabs: {
+      control: {type: 'object'},
+      description: 'Tabs to be displayed',
+    },
+    tabType: {
+      table: {defaultValue: {summary: 'primary'}}
+    },
+    ...getDisabledProps(disabledNames)
+  }}
+/>
+
+## Tabs
+Tabs organize content within a page or entity.
+
+export const Template = (args) => (
+  <NavTabs {...args} >
+    {R.map(tab => <NavTabPane key={tab.key} title={tab.title}>{tab.content}</NavTabPane>, args.tabs)}
+  </NavTabs>
+);
+
+<Canvas>
+  <Story
+    name="Tabs"
+    args={{
+      defaultActiveKey: 'tab1',
+      tabType:'primary',
+      tabs: [{
+        key: 'tab1',
+        title: 'Tab 1',
+        content: ''
+      }, {
+        key: 'tab2',
+        title: 'Tab 2',
+        content: ''
+      }, {
+        key: 'tab3',
+        title: 'Tab 3',
+        content: ''
+      }, {
+        key: 'tab4',
+        title: 'Tab 4',
+        content: ''
+      }],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Use tabs to reduce the complexity of navigation and/or content:
+* <b>Navigation:</b> Tabs simplify the navigation above them. By delegating IA hierarchy down to tabs, the navigation is able to
+display fewer choices that are easier to understand and work with. It is almost always more desireable to add tabs than
+to add additional pages to the nav bar.
+* <b>Content:</b> The organize the content below them. Tabs reduce the information on the page, providing a user with choices
+that are often easier to make than if all content on a page were visible at once.
+
+Consider whether there are situations (like an error, alert, or required task) where a particular tab may need to be
+called out with a <a href={bookMarks.BADGE}>badge</a>.
+
+### Accessibility
+Requires further research.
+
+### Technical Notes
+<CodeLocation.Tabs/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icon
+* Badge
+
+Used in:
+* Page

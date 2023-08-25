@@ -1,0 +1,92 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { CodeLocation, getDisabledProps, getStandardStoryPath } from '../../../utils/storybookUtil';
+import Paginator from '../Paginator';
+
+export const disabledNames = [
+  'data-test',
+  'rows',
+  'defaultPageSize',
+  'pageSize',
+  'pageNumber',
+  'paginationSummaryFormatter',
+  'isControlled',
+  'onChange',
+  'pageSizeOptions',
+  'showFooter',
+  'showCustomPageSelector',
+  'showPageSelector',
+  'defaultPageNumber'
+];
+
+<Meta
+  title={getStandardStoryPath('Content Containers/Pagination')}
+  component={Paginator}
+  argTypes={{
+    totalEntries: {
+      table: {defaultValue: {summary: 50}},
+      description: 'Total number of data items'
+    },
+    simplePaginationFooter: {
+      table: {defaultValue: {summary: true}},
+      description: 'Whether to use simple mode'
+    },
+    ...getDisabledProps(disabledNames)
+  }}
+/>
+
+## Pagination
+Pagination groups the entries of a list or table into smaller sets.
+
+export const Template = (args) => (
+  <Paginator
+    rows={[]}
+    pageSize={10}
+    paginationSummaryFormatter={() => null}
+    showPageSelector={false}
+    showCustomPageSelector={false}
+    {...args}
+  >
+    {() => null}
+  </Paginator>
+);
+
+<Canvas>
+  <Story
+    name="Pagination"
+    args={{
+      totalEntries: 50,
+      simplePaginationFooter: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Pagination is primarily done to address performance limitations when too many results are queried from the database or
+rendered in the browser.
+
+Recommendations
+* **Ordering:** Default the ordering of results so that the most important results appear first. This will minimize the amount of paging the user has to do to find an item of interest.
+* **Summarize:** Consider using a summary chart in data visualization situations where a user needs to get a sense of “the whole” before drilling / locating something specific that could be deeper into the pagination. If the chart is interactive and high density, it can be clicked directly to drill into an item rather than forcing them to find it 10 pages deep.
+* **Search:** Use search and filtering wherever possible to help a user quickly find the item they are looking for.
+* **Number of results:**
+  * Pagination generally creates friction for users. Bias toward showing as many results as possible per page, within the limits of reliable performance of the database and browser.
+  * Do not give the user a control to set how many results they’ll see. This creates extra choices and complexity on the page without any benefit for users. Depending on where it is located, it can be unclear or confusing. Users almost always want as many results per page as possible.
+
+### Accessibility
+Requires further research.
+
+### Technical Notes
+<CodeLocation.Paginator/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icon
+
+Used in:
+* Table
+* List
+* List of Cards

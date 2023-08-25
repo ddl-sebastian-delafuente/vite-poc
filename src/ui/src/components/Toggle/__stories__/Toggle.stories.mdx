@@ -1,0 +1,99 @@
+import {Canvas, Meta, Story} from '@storybook/addon-docs';
+import {ToggleWrapper} from './ToggleWrapper';
+import {
+  CodeLocation,
+  bookMarks,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+
+<Meta
+  title={getStandardStoryPath('Action/Toggle')}
+  component={ToggleWrapper}
+  argTypes={{
+    disabled: {
+      control: {type: 'boolean'},
+      table: {defaultValue: {summary: false}},
+      description: 'Toggle is allowed to be clicked or not.'
+    },
+    onText: {
+      control: {type: 'text'},
+      table: {defaultValue: {summary: 'On'}},
+      description: 'The text when Toggle is on',
+    },
+    offText: {
+      control: {type: 'text'},
+      table: {defaultValue: {summary: 'Off'}},
+      description: 'The text when Toggle is off',
+    },
+    size: {
+      control: {type: 'radio'},
+      options: ['default', 'small'],
+      table: {defaultValue: {summary: 'default'}},
+      description: 'The size of the Toggle. Available types are default and small.'
+    }
+  }}
+/>
+
+## Toggle
+A toggle provides a way to switch between two binary and mutually exclusive states (such as an on-off state).
+
+export const Template = (args) => <ToggleWrapper {...args} />
+
+<Canvas>
+  <Story
+    name="Toggle"
+    args={{
+      disabled: false,
+      onText: 'On',
+      offText: 'Off',
+      size: 'default'
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+A toggle should be used when a state change is triggered directly in real time. When a state change will not take effect
+until saved/submitted, use a <a href={bookMarks.CHECKBOX}>check box</a>.
+
+Toggles must always have a label on the left that is worded in such a way as to present a binary choice. Opposing choices
+are not the correct usage. Example:
+* Good (binary): Share project with your organization
+* Bad (opposing): Sharing settings
+
+Toggles should have a secondary description on the right that describes the current state. Example:
+* <em>Sharing enabled</em>
+* <em>Sharing disabled</em>
+
+Toggles can be disabled while also either on or off. If disabled, the secondary description should still reflect the
+outcome of the toggle. There should be a hover state that explains what the user needs to do to be able to change the
+toggles state.
+
+It is necessary to decide whether to have a toggle set to on or off by default when first rendering a page.
+As a rule of thumb:
+* A toggle should be off by default when:
+  * The off state is the default system state
+  * The on state is dangerous or introduces potential risks
+  * The on state requires additional configuration that is not necessary for the user to successfully complete their current goal
+* A toggle should be on by default when:
+  * The on state is default system state
+  * The on state is necessary for the user to complete their current goal
+  * Most users will want the state to be on
+
+
+### Accessibility
+Labels
+* The toggle relies on its left and right labels (described above) in order to be accessible. The visual state alone is
+not enough to accessibly communicate the status and outcome of the toggle.
+
+### Technical Notes
+<CodeLocation.Toggle/>
+
+### Composition
+Uses:
+* Text
+* Colors
+
+Used in:
+* Forms

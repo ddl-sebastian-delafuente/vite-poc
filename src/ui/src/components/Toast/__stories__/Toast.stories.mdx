@@ -1,0 +1,56 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import ToastrWrapper from './ToastrWrapper';
+import {
+  CodeLocation,
+  bookMarks,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+
+<Meta
+  title={getStandardStoryPath('Message/Toast')}
+  component={ToastrWrapper}
+/>
+
+## Toast
+Toast messages communicate the status of a user-initiated action.
+
+export const Template = (args) => <ToastrWrapper {...args} />
+
+<Canvas>
+  <Story
+    name="Toast"
+    args={{
+      type: 'success',
+      text: 'Toast message that is displayed',
+      duration: 2
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Toast messages should always communicate the status of an action.
+
+To allow for reading time, they should remain on the screen until the user dismisses them or the page is reloaded.
+
+Color and message format both depend on message status:
+* Success - Green color. Message format: “[Action name (past tense)] successfully”
+* Error - Red color. Message format: “Unable to [Action name]. To address this, [suggested remediation].”
+* Pending - Yellow color. Message format: “[Action name]” in progress. When it completes, you will be notified.”
+
+### Accessibility
+It is problematic to use just color to encode the status, so make sure that the text alone communicates the message without relying on the color.
+
+We need to do research to find out whether having an element appear/disappear is an issue for screen readers, and if so, what to do about it.
+
+### Technical Notes
+<CodeLocation.Toast/>
+
+### Composition
+Uses:
+* Text
+* Colors
+
+Used in:
+* None

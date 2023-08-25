@@ -1,0 +1,15 @@
+# Ignore these files
+src
+dist
+.storybook
+stories
+styleguide
+tests
+
+# Don't ignore these files, we need all these today because of the way these are structured, we can slowly detangle them and make components independent.
+!dist/components
+!dist/styled
+!dist/utils
+!dist/icons
+!dist/navbar
+!dist/index.js

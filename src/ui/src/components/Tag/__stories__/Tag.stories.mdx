@@ -1,0 +1,60 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import Tag from '../Tag';
+import { CodeLocation, getStandardStoryPath } from '../../../utils/storybookUtil';
+
+<Meta
+  title={getStandardStoryPath('Message/Tag')}
+  component={Tag}
+  argTypes={{
+    text: {
+      description: 'The tag text',
+      control: {
+        type: 'text'
+      },
+    },
+    closable: {
+      description: 'Whether the tag is closable',
+      table: {defaultValue: {summary: false}},
+      control: {
+        type: 'boolean'
+      },
+    }
+  }}
+/>
+
+## Tag
+A tag associates an object with 1 or more categories. It allows a user to view, apply, and remove categories for an object.
+
+export const Template = ({text, closable, ...args}) => <Tag {...args} closable={closable}>{text}</Tag>
+
+<Canvas>
+  <Story
+    name="Tag"
+    args={{
+      text: 'I am a tag',
+      closable: true,
+    }}
+  >
+    {Template.bind({})}
+}}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Tags should be used any time categories or labels can be present on an object. This can happen in tables, lists, and
+any content container.
+
+### Accessibility
+Requires more research.
+
+### Technical Notes
+<CodeLocation.Tag/>
+
+### Composition
+Uses:
+* Text
+* Colors
+
+Used in:
+* Table
+* Card

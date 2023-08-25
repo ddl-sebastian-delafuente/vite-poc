@@ -1,0 +1,119 @@
+import { useCallback, useState } from 'react';
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Divider } from 'antd';
+import Checkbox from '../Checkbox';
+import tooltipRenderer from '../../renderers/TooltipRenderer';
+import {
+  CodeLocation,
+  bookMarks,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+
+<Meta
+  title={getStandardStoryPath('Form/Select/Checkbox')}
+  component={Checkbox}
+  argTypes={{
+    disabled: {
+      table: {defaultValue: {summary: false}},
+      description: 'Disable checkbox',
+      control: { type: 'boolean' }
+    },
+    disabledReason: {
+      description: 'Disabled reason to be displayed on tooltip',
+      control: { type: 'text' }
+    },
+  }}
+/>
+
+## Checkbox
+A checkbox allows a user to choose a mutliple items from a list of options. It is ideal for shorter lists because it
+shows all options all the time.
+
+If the list is long, consider using a <a href={bookMarks.MULTI_SELECT}>multi-select</a>. If only one item can be
+selected, consider a <a href={bookMarks.RADIO}>radio</a> or <a href={bookMarks.SINGLE_SELECT}>single-select</a>.
+
+export const Template = ({disabledReason, ...args}) => {
+  const [checked1, setChecked1] = useState(false);
+  const [checked2, setChecked2] = useState(false);
+  const [indeterminate, setIndeterminate] = useState(false);
+  const [checkAll, setCheckAll] = useState(false);
+  const updateChecks = useCallback((checked1, checked2) => {
+    setChecked1(checked1);
+    setChecked2(checked2);
+    setIndeterminate((checked1 && !checked2) || (!checked1 && checked2));
+    setCheckAll(checked1 && checked2);
+  }, []);
+  return (
+    <>
+      <Checkbox
+        indeterminate={indeterminate}
+        onChange={(e) => updateChecks(e.target.checked, e.target.checked)}
+        checked={checkAll}
+        disabled={args.disabled}
+      >
+        Check all
+      </Checkbox>
+      <Divider/>
+      {tooltipRenderer(args.disabled ? disabledReason : '', <span>
+        <Checkbox
+          checked={checked1}
+          onChange={(e) => updateChecks(e.target.checked, checked2)}
+          {...args}
+        >
+          Checkbox one
+        </Checkbox>
+      </span>)}
+      {tooltipRenderer(args.disabled ? disabledReason : '', <span>
+        <Checkbox
+          checked={checked2}
+          onChange={(e) => updateChecks(checked1, e.target.checked)}
+          {...args}
+        >
+          Checkbox two
+        </Checkbox>
+      </span>)}
+    </>
+  );
+}
+
+<Canvas>
+  <Story
+    name="Checkbox"
+    args={{
+      disabled: false,
+      disabledReason: 'Disabled Reason',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Checkboxes shouldn't initiate actions on their own. To initiate an action, use an Action component like
+a <a href={bookMarks.SECONDARY_BUTTON}>secondary button</a> instead.
+
+Vertical alignment is easier to read and parse. Use horizontal or rectangular alignments only if they greatly improve
+the layout of the window.
+
+Support bulk select and clear for common patterns such as long tables or lists. Take these capabilities on a case by
+case basis, and evaluate whether supporting bulk selections is strictly required in your case. Eg: Small lists with 5
+items or less would not benefit much and add overhead.
+
+### Accessibility
+Click target
+* Users should be able to click/tap the checkbox or its label to activate it.
+
+Keyboard navigation
+* Users should be able to use their keyboard to navigate to and select/deselect options.
+
+### Technical Notes
+<CodeLocation.Checkbox/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icons
+
+Used in:
+* Table

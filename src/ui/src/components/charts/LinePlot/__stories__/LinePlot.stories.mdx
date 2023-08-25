@@ -1,0 +1,39 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  CodeLocation,
+  bookMarks,
+  getDisabledProps,
+  getDevStoryPath
+} from '../../../../utils/storybookUtil';
+import LinePlot from '../LinePlot';
+
+export const disabledNames = [];
+
+<Meta
+  title={getDevStoryPath('Charts')}
+  component={LinePlot}
+  argTypes={{
+    ...getDisabledProps(disabledNames)
+  }}
+/>
+
+export const Template = (args) => <LinePlot {...args} />
+
+<Canvas>
+  <Story
+    name="Line Plot"
+    args={{
+    title: 'mae, r^2',
+     data: [{
+       name: 'mae',
+       data: [[1, 0.8], [2, 0.4], [3, 0.8]]
+     }, {
+       name: 'r^2',
+       data: [[1, 0.2], [2, 0.3], [3, 0.4]]
+     }],
+     xAxisTitle: 'Wall Time'
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

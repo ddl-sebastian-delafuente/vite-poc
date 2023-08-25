@@ -1,0 +1,66 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { CodeLocation, getStandardStoryPath } from '../../../utils/storybookUtil';
+import Breadcrumbs from '../Breadcrumbs';
+
+export const routes = [
+   {
+     path: '/project',
+     breadcrumbName: 'My Project',
+   },
+   {
+     path: '/data',
+     breadcrumbName: 'Data'
+   },
+   {
+     path: '/datasource',
+     breadcrumbName: 'My Data Source',
+   }
+ ];
+
+<Meta
+  title={getStandardStoryPath('Navigation/Breadcrumbs')}
+  component={Breadcrumbs}
+  argTypes={{
+    routes: {
+      description: 'The routing stack information of router'
+    }
+  }}
+/>
+
+## Breadcrumbs
+Breadcrumbs show a user where they are current located within Domino and allow them to jump up to higher levels of the
+IA.
+
+export const Template = (args) => (
+  <Breadcrumbs {...args}/>
+);
+
+<Canvas>
+  <Story
+    name="Breadcrumbs"
+    args={{
+      routes
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+For consistency, Breadcrumbs should ideally be used on every page, placed above the page title. They are most valuable,
+and therefore strongly recommended in any situation where the page hierarchy puts a user at a deeper level of the IA than is represented in the Nav Bar.
+
+### Accessibility
+Requires further research.
+
+### Technical Notes
+<CodeLocation.Breadcrumbs/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Link
+
+Used in:
+* Page

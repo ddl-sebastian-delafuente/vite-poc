@@ -1,0 +1,30 @@
+{
+  "name": "@domino/ui",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "version": "1.0.0-PLACEHOLDER",
+  "description": "Shared typescript ONLY ui package",
+  "scripts": {
+    "watch": "../../node_modules/.bin/tsc -w",
+    "clean": "rm -rf ./dist",
+    "build": "yarn clean && ../../node_modules/.bin/tsc && cp ./src/navbar/stylePrimaryNav.css ./dist/navbar",
+    "storybook": "ALL=true ../../node_modules/.bin/storybook dev -p 6007",
+    "sstorybook": "../../node_modules/.bin/storybook dev -p 6007",
+    "build-storybook": "../../node_modules/.bin/storybook build",
+    "test": "../../node_modules/.bin/jest --config=../../jest.config.js",
+    "styleguide": "../../node_modules/.bin/styleguidist server",
+    "styleguide:build": "../../node_modules/.bin/styleguidist build",
+    "chromatic": "CHROMATIC_PROJECT_TOKEN=4944f17aece7 ../../node_modules/.bin/chromatic",
+    "chromaticAll": "ALL=true CHROMATIC_PROJECT_TOKEN=4944f17aece7 ../../node_modules/.bin/chromatic"
+  },
+  "dependencies": {
+    "rc-menu": "7.4.12"
+  },
+  "devDependencies": {
+    "react-docgen-typescript": "1.12.4"
+  },
+  "peerDependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}

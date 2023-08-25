@@ -1,0 +1,78 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { BadgeWrapper } from '../BadgeWrapper';
+import {
+  CodeLocation,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../../utils/storybookUtil';
+
+export const disabledNames = [
+  'color',
+  'dot',
+  'offset',
+  'overflowCount',
+  'showZero',
+  'status',
+  'style',
+  'text'
+  ];
+
+<Meta
+  title={getStandardStoryPath('Message/Badge')}
+  component={BadgeWrapper}
+  argTypes={{
+    count: {
+      name: 'count',
+      description: 'Badge content text',
+    },
+    title: {
+      name: 'title',
+      description: 'Badge tooltip',
+    },
+    isWarning: {
+      name: 'isWarning',
+      description: 'Whether action is required',
+      table: {defaultValue: {summary: true}},
+    },
+    ...getDisabledProps(disabledNames),
+  }}
+/>
+
+## Badge
+A badge communicates the existence of an item of interest that a user may want to investigate.
+
+export const Template = (args) => <BadgeWrapper {...args} />
+
+<Canvas>
+  <Story
+    name="Badge"
+    args={{
+      count: '1',
+      title: 'badge',
+      style: {pointerEvents: 'none'},
+      isWarning: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Because badges draw the eye, and because they lose effectiveness when there are too many, they should be used sparingly. They should be used only to mark things that you have high certainty a user would always want to investigate. If you wouldn’t send the user an email about the item being marked, think twice about whether it warrants a badge.
+
+### Accessibility
+Their small size and reliance on color for visual weight both raise accessibility concerns. This requires further investigation.
+
+Labels
+* Include more descriptive “alternate text” for screenreader users. Example: “2 monitoring alerts”
+
+### Technical Notes
+<CodeLocation.Badge/>
+
+### Composition
+Uses:
+* Text
+* Colors
+
+Used in:
+* None

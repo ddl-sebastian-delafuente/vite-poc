@@ -1,0 +1,98 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { CodeLocation, getDisabledProps, getStandardStoryPath } from '../../utils/storybookUtil';
+import NavbarWrapper, { defaultProps, flags } from './NavbarWrapper';
+
+export const disabledNames = [
+  'areStagesStale',
+  'currentUser',
+  'dmmLink',
+  'globalSocket',
+  'isMixpanelOff',
+  'isNucleusApp',
+  'loading',
+  'location',
+  'onError',
+  'primaryCollapsed',
+  'project',
+  'projectStageAndStatus',
+  'setAreStagesStale',
+  'setGlobalSocket',
+  'updateProject',
+  'updateProjectStageAndStatus',
+  'userId',
+  'username',
+  'whiteLabelSettings',
+];
+
+<Meta
+  title={getStandardStoryPath('Navigation/Nav Bar L1')}
+  component={NavbarWrapper}
+  argTypes={{
+    pathnameOverride: {
+      name: 'active location',
+      table: {defaultValue: {summary: '/projects'}},
+      description: 'Choose the active location. While Nav Bar is displayed, you can choose Overview to come back the main list.',
+      control: {
+        type: 'select',
+        options: {
+          'Overview': '/overview',
+          'Data': '/data',
+          'Projects': '/projects',
+          'Environments': '/environments',
+          'Models APIs': '/models',
+          'Tags': '/projectTags'
+        },
+      },
+    },
+    flags: {
+      description: 'Feature flag values'
+    },
+    ...getDisabledProps(disabledNames),
+  }}
+/>
+
+## Nav Bar L1
+The Nav Bar L1 lists the pages at top of the product’s IA. It allows the user to move between those pages and shows the
+user’s current location.
+
+export const Template = (args) => (
+  <NavbarWrapper {...args} />
+);
+
+<Canvas>
+  <Story
+    name="Nav Bar L1"
+    args={
+      {
+        flags,
+        location: {pathname: '/projects'},
+        pathnameOverride: '/projects',
+        ...defaultProps
+      }
+    }>
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+The Nav Bar L1 should be visible (expanded or collapsed) on every page in the product.
+* The user’s current location in the L1 nav should always be highlighted, even when the user navigates to levels below
+L1.
+* L1 nav is collapsed when the user navigates inside of a project (and the L2 nav is visible).
+
+### Accessibility
+Requires further research.
+
+### Technical Notes
+<CodeLocation.Navbar/>
+
+### Composition
+Uses:
+* Text
+* Colors
+* Icon
+* Links
+
+Used in:
+* Page

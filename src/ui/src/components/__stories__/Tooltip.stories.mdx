@@ -1,0 +1,74 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { TooltipWrapper as Tooltip } from './TooltipWrapper';
+import {
+  CodeLocation,
+  bookMarks,
+  getDisabledProps,
+  getStandardStoryPath
+} from '../../utils/storybookUtil';
+
+export const disabledNames = [
+  'mouseEnterDelay',
+  'mouseLeaveDelay',
+  'isLabelDashed'
+  ];
+
+<Meta
+  title={getStandardStoryPath('Message/Tooltip')}
+  component={Tooltip}
+  argTypes={{
+    ...getDisabledProps(disabledNames),
+  }}
+/>
+
+## Tooltip
+A tooltip contains supplemental information. It hides the information by default and shows it only when a user requests
+it. If the information is critical to a user’s success, consider using a <a href={bookMarks.CALLOUT}>callout</a>.
+
+This prevents clutter in the UI and ensures information is shown when it is needed. It also creates a barrier in that a
+user must know they need more information in order to get it.
+
+export const Template = (args) => <Tooltip {...args}/>
+
+<Canvas>
+  <Story
+    name="Tooltip"
+    args={{
+      tooltipContent: 'I’m a tooltip. Hopefully I’m helpful',
+      placement: 'topLeft'
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Usage Guidelines
+Tooltips should be used anywhere that supplemental information could help a user make a decision but isn’t important
+enough to be visible all the time. Do not use tooltips for warnings or situations where the information is critical for
+a user to know.
+
+Tooltips should generally be triggered by a blue “information” icon. The exception to this is when they are triggered by
+interacting with an interactive element (like a disabled button).
+
+Placement should default to “TL”. Other placements should only be used if the element is too close to the edge of the
+screen for the tooltip to fit.
+
+### Accessibility
+Tooltips should be able to be focused on and opened using only the keyboard. They should be in the tab order immediately
+after (?) whatever element they are providing more information for.
+
+### Technical Notes
+<CodeLocation.Tooltip/>
+
+### Composition
+Uses:
+* Text
+* Colors
+
+Used in:
+* Primary Button
+* Secondary Button
+* Multi-Action Button Menu
+* Item-Level Actions Button Menu
+* Toggle
+* Forms
