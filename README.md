@@ -1,3 +1,29 @@
+# Preparation
+
+Use a modified version of the "CRA Dev Tool" with the following added config
+
+```js
+   {
+    id: 1,
+    action: {
+      type: 'redirect',
+      redirect: {
+        url: `http://127.0.0.1:5173/src/test.js`,
+      },
+    },
+    condition: {
+      urlFilter: '/static/js/main.*.js',
+      resourceTypes: ['script'],
+    },
+  },
+```
+
+# Run the app
+
+```js
+npm run dev
+```
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
