@@ -1,22 +1,9 @@
 # Preparation
 
-Use a modified version of the "CRA Dev Tool" with the following added config
-
-```js
-   {
-    id: 1,
-    action: {
-      type: 'redirect',
-      redirect: {
-        url: `http://127.0.0.1:5173/src/test.js`,
-      },
-    },
-    condition: {
-      urlFilter: '/static/js/main.*.js',
-      resourceTypes: ['script'],
-    },
-  },
-```
+* Use "Vite Dev Tool" from https://github.com/cerebrotech/dev-extensions/tree/main/vite-dev-tool
+* Copy frontend/packages/ui/dist to vite-poc/src/ui
+* Copy frontend/node_modules/* to vite-poc/node_modules
+* Copy frontend/packages/domino-api/ to vite-poc/node_modules/@domino and rename it to api
 
 # Run the app
 
